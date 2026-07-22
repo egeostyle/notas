@@ -1,0 +1,2560 @@
+<html lang="es"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E.George Notas</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: linear-gradient(135deg, #6b7a8d 0%, #8494a7 50%, #9daab8 100%);
+    min-height: 100vh; color: #222;
+  }
+
+  /* ── SIDEBAR ── */
+  #sidebar {
+    position: fixed; top: 0; right: 0;
+    width: 280px; height: 100vh;
+    background: #e8eaed; box-shadow: -4px 0 20px rgba(0,0,0,.2);
+    transform: translateX(100%); transition: transform .3s ease;
+    z-index: 100; overflow-y: auto; display: flex; flex-direction: column;
+  }
+  #sidebar.open { transform: translateX(0); }
+  #sidebar-header {
+    padding: 18px 16px 12px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid #d0d3d8;
+  }
+  #sidebar-header span { font-size: 13px; color: #666; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; }
+  #btn-add-course { background: #444; color: #fff; border: none; border-radius: 6px; padding: 5px 10px; font-size: 12px; cursor: pointer; }
+  #btn-add-course:hover { background: #222; }
+  .course-group { padding: 8px 0; border-bottom: 1px solid #d8dade; }
+  .course-group-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; cursor: pointer; user-select: none; }
+  .course-group-header:hover { background: #dde0e5; }
+  .course-group-name { font-weight: 600; font-size: 14px; color: #333; }
+  .course-group-arrow { font-size: 12px; color: #666; transition: transform .2s; }
+  .course-group-arrow.collapsed { transform: rotate(-90deg); }
+  .course-group-actions { display: flex; gap: 6px; align-items: center; }
+  .group-edit-btn, .group-add-btn, .group-del-btn { background: none; border: none; cursor: pointer; font-size: 13px; padding: 2px 5px; border-radius: 4px; color: #666; }
+  .group-edit-btn:hover { background: #c8cbd0; color: #333; }
+  .group-add-btn:hover { background: #b8e4b8; color: #2a7a2a; }
+  .group-del-btn:hover { background: #f4c0c0; color: #a00; }
+  .subcourses { list-style: none; }
+  .subcourse-item { display: flex; align-items: center; gap: 8px; padding: 8px 16px 8px 28px; cursor: pointer; font-size: 14px; color: #444; }
+  .subcourse-item:hover { background: #d8dbe0; }
+  .subcourse-item.active { background: #cdd0d8; font-weight: 600; color: #111; }
+  .subcourse-item .sc-icon { width: 10px; height: 10px; border: 2px solid #999; border-radius: 5px; flex-shrink: 0; }
+  .subcourse-item.active .sc-icon { border-color: #333; border-style: solid; }
+  .subcourse-item .sc-name { flex: 1; }
+  .subcourse-item .sc-actions { display: flex; gap: 4px; opacity: 0; pointer-events: none; transition: opacity .15s; }
+  .subcourse-item:hover .sc-actions { opacity: 1; pointer-events: auto; }
+  .sc-actions button { background: none; border: none; cursor: pointer; font-size: 12px; padding: 2px 4px; border-radius: 3px; color: #666; }
+  .sc-actions button:hover { background: #bcc0c8; }
+
+  /* ── TOGGLE ── */
+  #floating-btns {
+    position: fixed; top: 16px; right: 16px;
+    display: flex; flex-direction: column; gap: 8px;
+    z-index: 200; transition: right .3s ease;
+  }
+  #floating-btns.sidebar-open { right: 296px; }
+
+  #toggle-sidebar {
+    width: 40px; height: 40px; background: #d0d3d8; border: none; border-radius: 50%;
+    cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,.2); transition: background .2s;
+  }
+  #toggle-sidebar:hover { background: #bec2ca; }
+
+  #btn-global-pdf {
+    width: 40px; height: 40px; background: #d0d3d8; border: none; border-radius: 50%;
+    cursor: pointer; font-size: 17px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,.2);
+    transition: background .2s, transform .1s;
+  }
+  #btn-global-pdf:hover { background: #bec2ca; transform: scale(1.08); }
+  #btn-global-pdf:active { transform: scale(.94); }
+
+  #btn-db {
+    width: 40px; height: 40px; background: #d0d3d8; border: none; border-radius: 50%;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,.2); transition: background .2s, transform .1s;
+    color: #444;
+  }
+  #btn-db:hover { background: #bec2ca; transform: scale(1.08); }
+  #btn-db:active { transform: scale(.94); }
+
+  #btn-save-float {
+    width: 40px; height: 40px; background: #d0d3d8; border: none; border-radius: 50%;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,.2); transition: background .2s, transform .1s;
+    color: #444;
+  }
+  #btn-save-float:hover { background: #bec2ca; transform: scale(1.08); }
+  #btn-save-float:active { transform: scale(.94); }
+
+  #btn-github {
+    width: 40px; height: 40px; background: #24292e; border: none; border-radius: 50%;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,.3); transition: background .2s, transform .1s;
+    color: #fff;
+  }
+  #btn-github:hover { background: #444d56; transform: scale(1.08); }
+  #btn-github:active { transform: scale(.94); }
+  #btn-github.syncing { animation: gh-pulse 1s infinite; }
+  #btn-github.success { background: #2ea44f; }
+  #btn-github.error   { background: #c00; }
+  @keyframes gh-pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  /* ── MAIN ── */
+  #main { padding: 24px 80px 24px 32px; min-height: 100vh; }
+
+  /* ── AVATAR ── */
+  #avatar-wrap {
+    position: relative; flex-shrink: 0;
+    width: 64px; height: 64px;
+  }
+  #avatar-circle {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: rgba(255,255,255,.22);
+    border: 2.5px solid rgba(255,255,255,.45);
+    overflow: hidden; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color .2s, box-shadow .2s;
+    position: relative;
+  }
+  #avatar-circle:hover { border-color: #fff; box-shadow: 0 0 0 3px rgba(255,255,255,.2); }
+  #avatar-circle img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  #avatar-placeholder {
+    font-size: 28px; line-height: 1; color: rgba(255,255,255,.7);
+    user-select: none;
+  }
+  /* Hover overlay on avatar */
+  #avatar-circle::after {
+    content: '📷';
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,.45);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; border-radius: 50%;
+    opacity: 0; transition: opacity .2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #avatar-circle:hover::after { opacity: 1; }
+  /* Delete button on avatar */
+  #avatar-del {
+    position: absolute; top: -3px; right: -3px;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: #e05050; border: 2px solid #fff;
+    color: #fff; font-size: 11px; font-weight: 700;
+    cursor: pointer; display: none;
+    align-items: center; justify-content: center;
+    line-height: 1; padding: 0;
+    box-shadow: 0 1px 4px rgba(0,0,0,.3);
+    transition: background .15s;
+  }
+  #avatar-del:hover { background: #c00; }
+  #avatar-wrap:hover #avatar-del { display: flex; }
+  #avatar-input { display: none; }
+
+  /* ── TITLE BLOCK (avatar + course name lines) ── */
+  #title-block {
+    display: flex; align-items: center; gap: 14px; flex-shrink: 0;
+  }
+  #title-text { display: flex; flex-direction: column; }
+
+  /* ── HEADER ROW: title-block + eval tabs + icon toolbar all in one line ── */
+  #header-row {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 14px; flex-wrap: wrap;
+  }
+  .page-title-small { font-size: 26px; font-weight: 700; color: #fff; white-space: nowrap; line-height: 1.1; }
+  .page-title { font-size: 13px; color: rgba(255,255,255,.7); margin-bottom: 1px;
+     }
+
+  /* ── EVALUATION TABS ── */
+  #eval-tabs-row {
+    display: flex; align-items: center; gap: 5px; flex-wrap: wrap; flex: 1;
+  }
+  .eval-tab {
+    display: flex; align-items: center; gap: 3px;
+    padding: 5px 13px; border-radius: 20px; border: none;
+    background: rgba(255,255,255,.18); color: rgba(255,255,255,.85);
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    transition: background .15s;
+  }
+  .eval-tab:hover { background: rgba(255,255,255,.3); }
+  .eval-tab.active { background: #fff; color: #333; }
+  .eval-tab .et-rename {
+    opacity: 0; font-size: 11px; padding: 0 2px; background: none; border: none;
+    cursor: pointer; color: inherit; margin-left: 1px; transition: opacity .15s;
+  }
+  .eval-tab:hover .et-rename { opacity: .6; }
+  .eval-tab .et-rename:hover { opacity: 1 !important; }
+  .eval-tab .et-del {
+    opacity: 0; font-size: 13px; padding: 0 2px; background: none; border: none;
+    cursor: pointer; color: inherit; margin-left: 1px; transition: opacity .15s;
+  }
+  .eval-tab:hover .et-del { opacity: .5; }
+  .eval-tab .et-del:hover { opacity: 1 !important; color: #e05050; }
+  #btn-add-eval {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 2px dashed rgba(255,255,255,.45);
+    background: none; color: rgba(255,255,255,.75); font-size: 18px; line-height: 1;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: border-color .15s, color .15s, background .15s; flex-shrink: 0;
+  }
+  #btn-add-eval:hover { border-color: #fff; color: #fff; background: rgba(255,255,255,.12); }
+
+  /* ── TOOLBAR — icon-only buttons ── */
+  #toolbar { display: none; gap: 4px; align-items: center; flex-shrink: 0; }
+  #toolbar.visible { display: flex; }
+  .toolbar-btn {
+    width: 36px; height: 36px; border: none; border-radius: 10px;
+    font-size: 17px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: background .15s, transform .1s; position: relative;
+  }
+  .toolbar-btn:active { transform: scale(.92); }
+  /* Tooltip */
+  .toolbar-btn::after {
+    content: attr(title);
+    position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%);
+    background: rgba(0,0,0,.75); color: #fff; font-size: 11px; font-weight: 500;
+    padding: 3px 7px; border-radius: 5px; white-space: nowrap;
+    opacity: 0; pointer-events: none; transition: opacity .15s; z-index: 50;
+  }
+  .toolbar-btn:hover::after { opacity: 1; }
+  .btn-edit-mode { background: rgba(255,255,255,.22); color: #fff; }
+  .btn-edit-mode:hover { background: rgba(255,255,255,.38); }
+  .btn-edit-mode.active { background: #f0a500; color: #fff; }
+  .btn-pdf  { background: rgba(255,255,255,.22); color: #fff; }
+  .btn-pdf:hover { background: rgba(255,255,255,.38); }
+  .btn-save { background: rgba(255,255,255,.22); color: #fff; }
+  .btn-save:hover { background: rgba(255,255,255,.38); }
+
+  /* ── GROUP TABS ── */
+  #group-tabs {
+    display: flex; background: rgba(255,255,255,.15); border-radius: 20px;
+    padding: 3px; width: fit-content; margin-bottom: 24px;
+  }
+  .gtab {
+    padding: 5px 18px; border-radius: 16px; border: none;
+    background: none; color: rgba(255,255,255,.8); font-size: 14px;
+    cursor: pointer; font-weight: 500; transition: background .15s;
+  }
+  .gtab.active { background: #555; color: #fff; }
+  .gtab:hover:not(.active) { background: rgba(255,255,255,.15); }
+
+  /* ── TABLES ── */
+  #tables-area { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+  .card { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,.18); }
+  #student-card { min-width: 420px; max-width: 520px; flex: 1; }
+  .card-header { background: #111; color: #fff; display: flex; align-items: center; padding: 0; }
+  .card-header-badge { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; background: #000; flex-shrink: 0; }
+  .card-header-title { flex: 1; padding: 0 14px; font-weight: 700; font-size: 15px; }
+  .card-header-right { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; }
+
+  #student-table { width: 100%; border-collapse: collapse; }
+  #student-table tbody tr { border-bottom: 1px solid #f0f0f0; transition: background .1s; }
+  #student-table tbody tr:hover { background: #f7f8fa; }
+  #student-table tbody tr.drag-over { background: #e3eeff; border-top: 2px solid #5588ff; }
+  #student-table tbody tr.dragging { opacity: .4; }
+
+  .td-drag { width: 28px; text-align: center; padding: 9px 2px; cursor: grab; color: #ccc; font-size: 16px; user-select: none; display: none; }
+  .edit-mode .td-drag { display: table-cell; }
+  .td-group { width: 46px; text-align: center; padding: 9px 6px; }
+  .td-group span { display: inline-block; background: #e8e9eb; border-radius: 6px; width: 28px; height: 28px; line-height: 28px; text-align: center; font-size: 13px; font-weight: 600; }
+  .td-name { padding: 9px 10px; font-size: 14px; color: #333; }
+  .td-note { width: 52px; text-align: center; padding: 9px 6px; }
+  .note-badge { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; font-size: 13px; font-weight: 700; color: #fff; }
+  .note-badge.red   { background: #e07070; }
+  .note-badge.green { background: #6bbf6b; }
+  .note-badge.gray  { background: #aaa; }
+  /* ── ACTION BUTTONS (per student row) ── */
+  .td-actions {
+    width: 80px; padding: 4px 6px; text-align: right;
+    display: flex; align-items: center; justify-content: flex-end; gap: 3px;
+  }
+  .student-action-btn {
+    background: none; border: none; cursor: pointer;
+    font-size: 13px; padding: 3px 4px; border-radius: 4px;
+    opacity: 0; transition: opacity .15s, background .1s;
+    line-height: 1; flex-shrink: 0;
+  }
+  #student-table tbody tr:hover .student-action-btn { opacity: 1; }
+  .btn-warn  { color: #e07000; }
+  .btn-warn:hover  { background: #fff0d8; }
+  .btn-warn.active { opacity: 1 !important; color: #c05000; }
+  .btn-info  { color: #5588cc; }
+  .btn-info:hover  { background: #ddeeff; }
+  .btn-del-student { color: #cc4444; }
+  .btn-del-student:hover { background: #ffe0e0; }
+
+  /* Warning row — subtle left border only, no heavy background */
+  #student-table tbody tr.row-warned { border-left: 3px solid #e07000; }
+
+  /* ── SYNC GROUP TOGGLE ── */
+  #sync-group-bar {
+    padding: 8px 14px; border-top: 1px solid #eee;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; color: #666;
+  }
+  #sync-group-toggle {
+    position: relative; width: 36px; height: 20px; flex-shrink: 0;
+    cursor: pointer;
+  }
+  #sync-group-toggle input { opacity: 0; width: 0; height: 0; }
+  .sync-slider {
+    position: absolute; inset: 0; border-radius: 20px;
+    background: #ccc; transition: background .2s;
+  }
+  .sync-slider::before {
+    content: ''; position: absolute;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: #fff; top: 3px; left: 3px;
+    transition: transform .2s; box-shadow: 0 1px 3px rgba(0,0,0,.2);
+  }
+  #sync-group-toggle input:checked + .sync-slider { background: #5a9a5a; }
+  #sync-group-toggle input:checked + .sync-slider::before { transform: translateX(16px); }
+
+  /* ── DELEGATE SECTION ── */
+  #delegate-section {
+    padding: 10px 14px; border-top: 1px solid #eee;
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  #delegate-section label { font-size: 12px; color: #666; font-weight: 600; white-space: nowrap; }
+  #delegate-select {
+    flex: 1; border: 1px solid #ddd; border-radius: 6px;
+    padding: 5px 8px; font-size: 13px; background: #fff; outline: none; cursor: pointer;
+    min-width: 120px;
+  }
+  #delegate-select:focus { border-color: #888; }
+  #btn-set-delegate {
+    background: #333; color: #fff; border: none; border-radius: 6px;
+    padding: 5px 10px; font-size: 12px; cursor: pointer; white-space: nowrap;
+  }
+  #btn-set-delegate:hover { background: #111; }
+
+  .card-footer { padding: 10px 14px; border-top: 1px solid #eee; display: flex; gap: 8px; align-items: center; }
+  .card-footer input { border: 1px solid #ddd; border-radius: 6px; padding: 6px 10px; font-size: 13px; flex: 1; outline: none; }
+  .card-footer input:focus { border-color: #888; }
+  .card-footer select { border: 1px solid #ddd; border-radius: 6px; padding: 6px 8px; font-size: 13px; background: #fff; cursor: pointer; outline: none; }
+  .btn-add { background: #333; color: #fff; border: none; border-radius: 6px; padding: 6px 12px; font-size: 13px; cursor: pointer; white-space: nowrap; }
+  .btn-add:hover { background: #111; }
+  .btn-import { background: #555; color: #fff; border: none; border-radius: 6px; padding: 6px 10px; font-size: 15px; cursor: pointer; flex-shrink: 0; }
+  .btn-import:hover { background: #333; }
+
+  /* ── CRITERIA CARD ── */
+  #criteria-card { min-width: 300px; max-width: 380px; }
+  #criteria-table { width: 100%; border-collapse: collapse; }
+  #criteria-table tbody tr { border-bottom: 1px solid #f0f0f0; }
+  #criteria-table tbody tr:hover { background: #f7f8fa; }
+  .td-criteria-name { padding: 11px 14px; font-size: 14px; color: #333; }
+  .td-criteria-name.final { font-weight: 700; }
+  .td-criteria-score { width: 60px; text-align: center; padding: 8px 10px; }
+  .criteria-score-input { width: 34px; height: 34px; border: 1.5px solid #ddd; border-radius: 50%; text-align: center; font-size: 13px; font-weight: 700; outline: none; background: #f4f4f4; color: #444; appearance: textfield; -moz-appearance: textfield; }
+  .criteria-score-input::-webkit-outer-spin-button, .criteria-score-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+  .criteria-score-input:focus { border-color: #888; background: #fff; }
+  .criteria-footer { padding: 10px 14px; border-top: 1px solid #eee; display: flex; gap: 8px; align-items: center; }
+  .criteria-footer input { border: 1px solid #ddd; border-radius: 6px; padding: 6px 10px; font-size: 13px; flex: 1; outline: none; }
+  .criteria-footer input:focus { border-color: #888; }
+  #criteria-group-select { border: none; border-right: 1px solid gray; padding: 4px 8px; font-size: 14px; font-weight: 700; background: #000; cursor: pointer; outline: none; min-width: 50px; color: white; }
+
+  /* ── MODALS ── */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 500; align-items: center; justify-content: center; }
+  .modal-overlay.show { display: flex; }
+  .modal { background: #fff; border-radius: 12px; padding: 24px; min-width: 320px; box-shadow: 0 8px 40px rgba(0,0,0,.3); }
+  .modal h3 { margin-bottom: 14px; font-size: 16px; }
+  .modal input { width: 100%; border: 1.5px solid #ddd; border-radius: 7px; padding: 8px 12px; font-size: 14px; outline: none; }
+  .modal input:focus { border-color: #555; }
+  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+  .btn-cancel { background: #eee; border: none; border-radius: 7px; padding: 7px 16px; font-size: 13px; cursor: pointer; }
+  .btn-cancel:hover { background: #ddd; }
+  .btn-confirm { background: #333; color: #fff; border: none; border-radius: 7px; padding: 7px 16px; font-size: 13px; cursor: pointer; }
+  .btn-confirm:hover { background: #111; }
+
+  .empty-state { text-align: center; padding: 32px; color: rgba(255,255,255,.6); font-size: 14px; }
+  #edit-mode-banner { display: none; background: #f0a500; color: #fff; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; margin-bottom: 10px; }
+  #edit-mode-banner.visible { display: block; }
+
+
+  /* ── LOGIN ── */
+  #login-screen {
+    position:fixed; inset:0; z-index:9999;
+    background:linear-gradient(135deg,#6b7a8d 0%,#8494a7 50%,#9daab8 100%);
+    display:none; align-items:center; justify-content:center;
+  }
+  #login-screen.visible { display:flex; }
+  #login-box {
+    background:#fff; border-radius:18px; padding:40px 36px; width:320px;
+    box-shadow:0 12px 48px rgba(0,0,0,.25);
+    display:flex; flex-direction:column; align-items:center;
+  }
+  #login-box .login-icon {
+    width:64px; height:64px; border-radius:50%;
+    background:linear-gradient(135deg,#6b7a8d,#9daab8);
+    display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+  }
+  #login-box h2 { font-size:20px; font-weight:700; color:#222; margin-bottom:4px; }
+  #login-box p  { font-size:13px; color:#aaa; margin-bottom:22px; }
+  .login-field { width:100%; margin-bottom:12px; }
+  .login-field label { font-size:12px; font-weight:600; color:#555; display:block; margin-bottom:5px; }
+  .login-field input {
+    width:100%; border:1.5px solid #ddd; border-radius:8px;
+    padding:10px 12px; font-size:14px; outline:none; box-sizing:border-box; transition:border-color .2s;
+  }
+  .login-field input:focus { border-color:#8494a7; }
+  #login-error { font-size:12px; color:#c00; min-height:16px; margin-bottom:10px; text-align:center; width:100%; }
+  #login-btn {
+    width:100%; padding:11px; border:none; border-radius:8px;
+    background:linear-gradient(135deg,#6b7a8d,#8494a7);
+    color:#fff; font-size:15px; font-weight:700; cursor:pointer; transition:opacity .2s;
+  }
+  #login-btn:hover { opacity:.88; }
+  #logout-btn {
+    width:36px; height:36px; background:rgba(255,255,255,.18); border:none; border-radius:50%;
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:16px; transition:background .2s;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
+  }
+  #logout-btn:hover { background:rgba(220,60,60,.7); }
+
+  /* ── AVATAR MODAL ── */
+  #avatar-modal-overlay {
+    display:none; position:fixed; inset:0; z-index:800;
+    background:rgba(0,0,0,.55); align-items:center; justify-content:center;
+  }
+  #avatar-modal-overlay.show { display:flex; }
+  #avatar-modal-box {
+    background:#fff; border-radius:14px; padding:24px; width:360px; max-width:95vw;
+    box-shadow:0 8px 40px rgba(0,0,0,.3);
+  }
+  #avatar-modal-box h3 { font-size:16px; margin-bottom:14px; color:#222; }
+  #avatar-drop-zone {
+    border:2px dashed #ccc; border-radius:10px; padding:28px 16px;
+    text-align:center; cursor:pointer; transition:border-color .2s,background .2s;
+    margin-bottom:12px; color:#aaa; font-size:13px; position:relative;
+  }
+  #avatar-drop-zone:hover, #avatar-drop-zone.drag-over { border-color:#8494a7; background:#f4f6f9; color:#555; }
+  #avatar-drop-zone svg { display:block; margin:0 auto 8px; opacity:.4; }
+  #avatar-drop-zone input[type=file] {
+    position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%;
+  }
+  #avatar-preview-box { display:none; text-align:center; margin-bottom:12px; }
+  #avatar-preview-box img { width:72px; height:72px; border-radius:50%; object-fit:cover; border:2px solid #ddd; }
+  #avatar-url-input {
+    width:100%; border:1.5px solid #ddd; border-radius:7px;
+    padding:8px 12px; font-size:13px; outline:none; box-sizing:border-box;
+    margin-bottom:4px; transition:border-color .2s;
+  }
+  #avatar-url-input:focus { border-color:#8494a7; }
+  .avatar-hint { font-size:11px; color:#aaa; margin-bottom:14px; }
+
+  /* ── SEPARATOR ── */
+  #student-table tbody tr.sep-row td {
+    height:6px; padding:0; background:#111; border:none; pointer-events:none;
+  }
+  #student-table tbody tr.sep-row:hover td { background:#333; }
+  .sep-del-btn {
+    pointer-events:all; background:none; border:none; cursor:pointer;
+    color:#fff; font-size:13px; opacity:0; transition:opacity .15s; padding:0 4px;
+  }
+  #student-table tbody tr.sep-row:hover .sep-del-btn { opacity:.7; }
+  .btn-add-sep { background:rgba(255,255,255,.22); color:#fff; }
+  .btn-add-sep:hover { background:rgba(255,255,255,.38); }
+  @media (max-width: 700px) {
+    #main { padding: 16px 16px 100px 16px; }
+    #student-card, #criteria-card { min-width: unset; width: 100%; }
+    #sidebar { width: 100%; }
+    .card-footer { flex-wrap: wrap; }
+    #floating-btns {
+      top:auto !important; bottom:0 !important; right:0 !important; left:0 !important;
+      width:100%; flex-direction:row !important; justify-content:space-evenly;
+      align-items:center; background:rgba(232,234,237,.97); backdrop-filter:blur(8px);
+      padding:8px 8px calc(8px + env(safe-area-inset-bottom));
+      border-top:1px solid #d0d3d8; border-radius:0;
+      box-shadow:0 -2px 12px rgba(0,0,0,.15); z-index:300; gap:0;
+    }
+    #floating-btns.sidebar-open { right:0 !important; }
+    #floating-btns button { box-shadow:none; background:rgba(0,0,0,.07) !important; border-radius:12px !important; }
+    #floating-btns #btn-github { background:#24292e !important; }
+    .toolbar-btn::after { display:none; }
+  }
+  /* ── CALCULADORA ── */
+  .btn-calc { background: rgba(255,255,255,.22); color: #fff; }
+  .btn-calc:hover { background: rgba(255,255,255,.38); }
+  #calc-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+  #calc-table th, #calc-table td { border: 1px solid #ddd; padding: 8px 10px; text-align: center; font-size: 14px; }
+  #calc-table th { font-weight: 600; color: #111; font-size: 15px; }
+  #calc-table td:first-child { text-align: left; font-weight: 500; color: #222; }
+  .calc-input { width: 55px; padding: 4px; border: 1.5px solid #ccc; border-radius: 4px; text-align: center; font-size: 14px; font-weight: 600; outline: none; transition: border-color .2s; }
+  .calc-input:focus { border-color: #555; }
+  .calc-input-name { width: 80px; padding: 4px; border: 1.5px solid #ccc; border-radius: 4px; font-size: 13px; outline: none; }
+  .calc-final-row { font-weight: 600; font-size: 18px; display: flex; align-items: center; justify-content: flex-start; gap: 10px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #ddd; }
+  .calc-note-badge { font-weight: 700; color: #333; }
+  .calc-note-badge.green { color: #1a7a1a; }
+  .calc-note-badge.red { color: #c00; }
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div id="login-box">
+    <div class="login-icon">
+      <svg viewBox="0 0 24 24" fill="white" width="30" height="30"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+    </div>
+    <h2>E.George Notas</h2>
+    <p>Ingresa tus credenciales para continuar</p>
+    <div class="login-field">
+      <label>Usuario</label>
+      <input type="text" id="login-user" placeholder="Usuario" autocomplete="username" />
+    </div>
+    <div class="login-field">
+      <label>Contraseña</label>
+      <input type="password" id="login-pass" placeholder="Contraseña" autocomplete="current-password" />
+    </div>
+    <div id="login-error"></div>
+    <button id="login-btn" onclick="doLogin()">Ingresar</button>
+  </div>
+</div>
+
+<div id="floating-btns" class="sidebar-open">
+  <button id="toggle-sidebar" title="Abrir/Cerrar menú">›</button>
+  <button id="btn-global-pdf" onclick="openConsolidadoModal()" title="Descargar consolidado">
+    <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="20" height="20"><path d="M12 2a1 1 0 0 1 1 1v10.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V3a1 1 0 0 1 1-1zM5 17a1 1 0 0 1 1 1v2h12v-2a1 1 0 1 1 2 0v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2a1 1 0 0 1 1-1z"/></svg>
+</button>
+    <button id="btn-db" onclick="openDBModal()" title="Base de datos">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg>
+  </button>
+    <button id="btn-save-float" onclick="saveHTML()" title="Guardar HTML">
+    <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="20" height="20"><path fill-rule="evenodd" d="M4 3a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V8a1 1 0 0 0-.293-.707l-4-4A1 1 0 0 0 16 3H4zm6 11c0-1.6 1.333-2 2-2s2 .4 2 2-1.333 2-2 2-2-.4-2-2zm4-9H8v3h6V5z" clip-rule="evenodd"/></svg>
+</button>
+  <button id="btn-github" onclick="openGithubModal()" title="Sincronizar con GitHub">
+    <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+  </button>
+  <button id="logout-btn" onclick="doLogout()" title="Cerrar sesión">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+  </button>
+      </div>
+
+
+<!-- MODAL CONSOLIDADO -->
+<div class="modal-overlay" id="consolidado-modal-overlay">
+  <div class="modal" style="min-width:380px;max-width:480px">
+    <h3 style="margin-bottom:6px">📄 Descargar Consolidado</h3>
+    <p style="font-size:13px;color:#666;margin-bottom:16px">Selecciona la evaluación y se generará un PDF con todos los cursos y sus alumnos.</p>
+    <label style="font-size:13px;font-weight:600;color:#444;display:block;margin-bottom:6px">Evaluación</label>
+    <select id="consolidado-eval-select"></select>
+    <div id="consolidado-preview" style="font-size: 12px; color: rgb(42, 122, 42); margin-bottom: 16px; min-height: 16px;">✓ Todos los cursos: 0 cursos · 0 alumnos con todas sus evaluaciones</div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeConsolidadoModal()">Cancelar</button>
+      <button class="btn-confirm" onclick="downloadConsolidado()">⬇ Descargar PDF</button>
+    </div>
+  </div>
+</div>
+
+<aside id="sidebar" class="open">
+  <div id="sidebar-header"><span>Cursos</span><button id="btn-add-course">+ Curso</button></div>
+  <div id="course-list"></div>
+</aside>
+
+<div id="main">
+  <div id="no-course-msg" class="empty-state" style="padding-top: 80px;">
+    <div style="font-size:48px;margin-bottom:12px">📋</div>
+    <div style="font-size:18px;font-weight:700;color:#fff;margin-bottom:6px">Bienvenido, Docente</div>
+    <div>Abre el menú lateral (›) y selecciona un curso para comenzar.</div>
+  </div>
+
+  <div id="course-view" style="display: none;">
+
+    <!-- UNIFIED HEADER ROW -->
+    <div id="header-row">
+      <!-- Avatar + title block -->
+      <div id="title-block">
+        <div id="avatar-wrap">
+          <div id="avatar-circle" onclick="openAvatarModal()" title="Cambiar foto">
+            <span id="avatar-placeholder">👤</span>
+          </div>
+          <button id="avatar-del" onclick="removeAvatar()" title="Eliminar foto">✕</button>
+        </div>
+        <div id="title-text">
+          <div class="page-title-small" id="parent-course-label">T. de gráfica digital 1</div>
+          <div class="page-title" id="current-course-title">2026332411</div>
+        </div>
+      </div>
+      <div id="eval-tabs-row">
+        <div class="eval-tab active"><span style="cursor: pointer;">T1</span><button class="et-rename" title="Renombrar">✎</button></div><button id="btn-add-eval" onclick="addEval()" title="Agregar evaluacion">+</button>
+      </div>
+      <div id="toolbar" class="visible">
+        <button class="toolbar-btn btn-calc" onclick="openCalcModal()" title="Calculadora de Promedios">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="14.01"></line><line x1="12" y1="14" x2="12" y2="14.01"></line><line x1="8" y1="14" x2="8" y2="14.01"></line><line x1="16" y1="10" x2="16" y2="10.01"></line><line x1="12" y1="10" x2="12" y2="10.01"></line><line x1="8" y1="10" x2="8" y2="10.01"></line><line x1="16" y1="18" x2="16" y2="18.01"></line><line x1="12" y1="18" x2="12" y2="18.01"></line><line x1="8" y1="18" x2="8" y2="18.01"></line></svg>
+        </button>
+        <button class="toolbar-btn btn-edit-mode" id="btn-edit-mode" onclick="toggleEditMode()" title="Ordenar filas">⠿</button>
+        <button class="toolbar-btn btn-add-sep" onclick="addSeparator()" title="Agregar separador">
+          <svg viewBox="0 0 24 24" width="18" height="18"><rect x="2" y="11" width="20" height="2" fill="currentColor" rx="1"/></svg>
+        </button>
+        <button class="toolbar-btn btn-pdf" onclick="downloadPDF()" title="Descargar PDF">
+          <svg viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="20" height="20"><path fill-rule="evenodd" clip-rule="evenodd" d="M5.8 14H5v1h.8c.3 0 .5-.2.5-.5S6.1 14 5.8 14zM11 2H3v16h13V7l-5-5zm-3.8 14.6C7.2 15.4 6.6 16 5.8 16H5v1H4v-4h1.8c.8 0 1.4.6 1.4 1.4v.2zM11.3 15.1C11.3 16.1 10.5 17 9.4 17H8v-4h1.4c1 0 1.9.8 1.9 1.9v.2zM15 14h-2v1h1.5v1H13v1h-1v-4h3v1zM15 12H4V3h7v4h4v5zM9.4 14H9v2h.4c.6 0 1-.4 1-1s-.5-1-1-1z"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="edit-mode-banner" class="">Modo edicion activo — arrastra las filas para reordenarlas.</div>
+
+    <div id="group-tabs"><button class="gtab active">Todos</button><button class="gtab">1</button></div>
+
+    <div id="tables-area">
+      <!-- STUDENT TABLE -->
+      <div class="card" id="student-card">
+        <div class="card-header">
+          <div class="card-header-badge">G</div>
+          <div class="card-header-title">Nombres</div>
+          <div class="card-header-right" style="width:80px"></div>
+          <div class="card-header-right" id="col-n-label">T1</div>
+        </div>
+        <table id="student-table" class=""><tbody id="student-tbody"></tbody></table>
+        <div class="card-footer">
+          <input id="new-student-name" placeholder="Nombre del alumno">
+          <select id="new-student-group"></select>
+          <button class="btn-add" onclick="addStudent()">+ Alumno</button>
+          <button class="btn-import" onclick="openImportModal()" title="Importar desde Excel">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M2.86 2.88L15.43 1.08A.5.5 0 0 1 16 1.58v20.84a.5.5 0 0 1-.57.5L2.86 21.12A1 1 0 0 1 2 20.13V3.87a1 1 0 0 1 .86-.99zM4 4.74v14.53l10 1.42V3.31L4 4.74zM17 19h3V5h-3V3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4v-2zm-6.8-7L13 16h-2.4L9 13.71 7.4 16H5l2.8-4L5 8h2.4L9 10.29 10.6 8H13l-2.8 4z"/></svg>
+          </button>
+        </div>
+        <!-- SYNC GROUP BAR -->
+        <div id="sync-group-bar">
+          <label id="sync-group-toggle" title="Sincronizar grupos entre evaluaciones">
+            <input type="checkbox" id="sync-group-chk" onchange="onSyncGroupChange()">
+            <span class="sync-slider"></span>
+          </label>
+          <span>Sincronizar grupos entre evaluaciones</span>
+          <span id="sync-group-status" style="margin-left:auto;font-size:11px;font-weight:600;color:#aaa">OFF</span>
+        </div>
+      </div>
+
+      <!-- CRITERIA TABLE -->
+      <div class="card" id="criteria-card">
+        <div class="card-header">
+          <div class="card-header-badge">
+            <select id="criteria-group-select"></select>
+          </div>
+          <div class="card-header-title">Criterios</div>
+        </div>
+        <table id="criteria-table">
+          <tbody id="criteria-tbody"></tbody>
+          <tfoot>
+            <tr style="border-top:2px solid #eee">
+              <td class="td-criteria-name final">Nota Final</td>
+              <td class="td-criteria-score"><span class="note-badge gray" id="final-note-badge">—</span></td>
+            </tr>
+          </tfoot>
+        </table>
+        <div class="criteria-footer">
+          <input id="new-criteria-name" placeholder="Nombre del criterio">
+          <button class="btn-add" onclick="addCriteria()">+ Criterio</button>
+        </div>
+        <!-- DELEGATE SECTION -->
+        <div id="delegate-section">
+          <label>● Delegado:</label>
+          <select id="delegate-select"></select>
+          <button id="btn-set-delegate" onclick="confirmSetDelegate()">Asignar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL genérico -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <h3 id="modal-title">Nuevo sub-curso</h3>
+    <input id="modal-input" type="text">
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-confirm" onclick="confirmModal()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL comentario de alumno -->
+<div class="modal-overlay" id="comment-modal-overlay">
+  <div class="modal" style="min-width:360px;max-width:480px">
+    <h3 id="comment-modal-title" style="margin-bottom:6px">📝 Comentario</h3>
+    <p id="comment-modal-student" style="font-size:12px;color:#888;margin-bottom:10px">ABARCA FLORES, SHARELLA ESTRELLA</p>
+    <textarea id="comment-textarea" placeholder="Escribe un comentario o nota sobre este alumno..." style="width:100%;height:120px;border:1.5px solid #ddd;border-radius:7px;padding:10px;font-size:13px;resize:vertical;outline:none;font-family:inherit;line-height:1.5"></textarea>
+    <div class="modal-actions" style="margin-top:14px">
+      <button class="btn-cancel" onclick="closeCommentModal()">Cancelar</button>
+      <button class="btn-confirm" onclick="saveComment()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL confirmar eliminación alumno -->
+<div class="modal-overlay" id="delete-modal-overlay">
+  <div class="modal" style="max-width:400px">
+    <h3 style="margin-bottom:8px">🗑 Eliminar alumno</h3>
+    <p id="delete-modal-text" style="font-size:13px;color:#555;margin-bottom:16px;line-height:1.5">¿Eliminar a <strong>ESPINOLA GARAY, ANDREA CELESTE</strong>? Se eliminará de todas las evaluaciones del curso y no se puede deshacer.</p>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeDeleteModal()">Cancelar</button>
+      <button id="delete-modal-confirm" class="btn-confirm" style="background:#c00" onclick="confirmDeleteStudent()">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL confirmar delegado -->
+<div class="modal-overlay" id="delegate-modal-overlay">
+  <div class="modal" style="max-width:400px">
+    <h3 style="margin-bottom:8px">Asignar delegado</h3>
+    <p id="delegate-modal-text" style="font-size:13px;color:#555;margin-bottom:16px;line-height:1.5">¿Asignar a <strong>MENA CASTRO, SABRINA LEYDI</strong> como delegado del grupo?</p>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="document.getElementById('delegate-modal-overlay').classList.remove('show')">Cancelar</button>
+      <button class="btn-confirm" onclick="applyDelegate()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL confirmar sync grupos -->
+<div class="modal-overlay" id="sync-modal-overlay">
+  <div class="modal" style="max-width:420px">
+    <h3 style="margin-bottom:8px" id="sync-modal-title">Sincronizar grupos</h3>
+    <p id="sync-modal-text" style="font-size:13px;color:#555;margin-bottom:12px;line-height:1.5"></p>
+    <p style="font-size:13px;color:#555;margin-bottom:8px">Escribe <strong>confirmar</strong> para continuar:</p>
+    <input id="sync-confirm-input" type="text" placeholder="confirmar" style="width:100%;border:1.5px solid #ddd;border-radius:7px;padding:8px 12px;font-size:14px;outline:none;margin-bottom:14px">
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="cancelSyncChange()">Cancelar</button>
+      <button class="btn-confirm" onclick="applySyncChange()">Aceptar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL importar Excel -->
+<div class="modal-overlay" id="import-modal-overlay">
+  <div class="modal" style="min-width:400px;max-width:520px">
+    <h3 style="margin-bottom:6px">📋 Importar alumnos desde Excel</h3>
+    <p style="font-size:13px;color:#666;margin-bottom:12px">Copia una columna de nombres desde Excel (Ctrl+C) y pégala aquí (Ctrl+V).</p>
+    <textarea id="import-textarea" placeholder="Pega aquí los nombres copiados de Excel..." style="width:100%;height:160px;border:1.5px solid #ddd;border-radius:7px;padding:10px;font-size:13px;resize:vertical;outline:none;font-family:inherit;line-height:1.6"></textarea>
+    <div id="import-preview" style="font-size: 12px; color: rgb(42, 122, 42); margin-top: 6px; min-height: 18px;">✓ Se importarán 14 alumnos</div>
+    <div style="margin-top:10px;display:flex;align-items:center;gap:10px">
+      <label style="font-size:13px;color:#555">Asignar grupo:</label>
+      <select id="import-group-select"></select>
+    </div>
+    <div class="modal-actions" style="margin-top:16px">
+      <button class="btn-cancel" onclick="closeImportModal()">Cancelar</button>
+      <button class="btn-confirm" onclick="confirmImport()">Importar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── LOGIN — runs immediately, before anything else ────────────────────────────
+const _LC=['0522a55e2d5f0993a3d66d28864b2862a7218a75ea7968b075333434404485c3',
+           '7dc632db219fbc5dc7421a7d5cbeba14d87be9302c6d4c119b51fb2099596182'];
+(function(){
+  try{
+    const s=localStorage.getItem('_lauth');
+    const e=_LC[0].slice(0,16)+_LC[1].slice(0,16);
+    if(!s||s!==e) document.getElementById('login-screen').classList.add('visible');
+  } catch(_){ document.getElementById('login-screen').classList.add('visible'); }
+})();
+async function _lh(s){
+  const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
+  return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+async function doLogin(){
+  const u=(document.getElementById('login-user').value||'').trim();
+  const p=document.getElementById('login-pass').value||'';
+  const err=document.getElementById('login-error');
+  if(!u||!p){err.textContent='Completa todos los campos.';return;}
+  const[hu,hp]=await Promise.all([_lh(u),_lh(p)]);
+  if(hu===_LC[0]&&hp===_LC[1]){
+    localStorage.setItem('_lauth',hu.slice(0,16)+hp.slice(0,16));
+    document.getElementById('login-screen').classList.remove('visible');
+  } else {
+    err.textContent='Usuario o contraseña incorrectos.';
+    document.getElementById('login-pass').value='';
+    document.getElementById('login-pass').focus();
+  }
+}
+function doLogout(){
+  localStorage.removeItem('_lauth');
+  document.getElementById('login-screen').classList.add('visible');
+  document.getElementById('login-user').value='';
+  document.getElementById('login-pass').value='';
+  document.getElementById('login-error').textContent='';
+}
+document.getElementById('login-pass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+document.getElementById('login-user').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('login-pass').focus();});
+// ── END LOGIN ─────────────────────────────────────────────────────────────────
+// ══ STATE (SAVED) ══
+// Data structure per sub-course:
+//   students: [{ id, name, group }]           ← shared across all evals
+//   evals: [{ id, name, criteria:[], groupScores:{grp:{idx:val, __final}} }]
+//   activeEvalIdx: number
+// ══════════════════════════════════════════════════════════════════════════════
+let state = (window.__SAVED_STATE__ || {"courses":[],"data":{},"activeCourse":null,"activeGroup":"all","criteriaGroup":"1","editMode":false,"avatarDataUrl":null,"syncGroups":false, "calcConfig":[{"name":"T1","pct":20},{"name":"T2","pct":35},{"name":"T3","pct":45}]});
+
+function makeEval(name) {
+  return { id: 'ev_'+Date.now()+Math.random(), name, criteria:[], groupScores:{} };
+}
+
+function ensureData(subId) {
+  if (!state.data[subId]) {
+    state.data[subId] = {
+      students: [],
+      evals: [makeEval('T1')],
+      activeEvalIdx: 0,
+      syncGroups: false,
+      delegateId: null,
+    };
+  }
+  const d = state.data[subId];
+  // migrate old format
+  if (!d.evals) {
+    d.evals = [{ id:'ev_legacy', name:'T1', criteria: d.criteria||[], groupScores: d.groupScores||{} }];
+    d.activeEvalIdx = 0;
+    delete d.criteria; delete d.groupScores;
+  }
+  if (d.syncGroups === undefined) d.syncGroups = false;
+  if (d.delegateId === undefined) d.delegateId = null;
+  // migrate students: add comment/warned if missing
+  d.students.forEach(s => {
+    if (s.comment === undefined) s.comment = '';
+    if (s.warned === undefined) s.warned = false;
+    // evalGroups: per-eval group assignment {evalId: groupNum}
+    if (!s.evalGroups) s.evalGroups = {};
+  });
+  return d;
+}
+
+function currentEval() {
+  if (!state.activeCourse) return null;
+  const d = ensureData(state.activeCourse.subId);
+  return d.evals[d.activeEvalIdx];
+}
+
+// ── MODAL ──────────────────────────────────────────────────────────────────────
+let modalCallback = null;
+function openModal(title, val, cb) {
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-input').value = val||'';
+  modalCallback = cb;
+  document.getElementById('modal-overlay').classList.add('show');
+  setTimeout(()=>document.getElementById('modal-input').focus(), 50);
+}
+function closeModal() { document.getElementById('modal-overlay').classList.remove('show'); modalCallback=null; }
+function confirmModal() { const v=document.getElementById('modal-input').value.trim(); if(v&&modalCallback)modalCallback(v); closeModal(); }
+document.getElementById('modal-input').addEventListener('keydown',e=>{ if(e.key==='Enter')confirmModal(); if(e.key==='Escape')closeModal(); });
+document.getElementById('modal-overlay').addEventListener('click',e=>{ if(e.target===document.getElementById('modal-overlay'))closeModal(); });
+
+// ── SIDEBAR ────────────────────────────────────────────────────────────────────
+const sidebar=document.getElementById('sidebar');
+const toggleBtn=document.getElementById('toggle-sidebar');
+let sidebarOpen=false;
+toggleBtn.addEventListener('click',()=>{
+  sidebarOpen=!sidebarOpen;
+  sidebar.classList.toggle('open',sidebarOpen);
+  document.getElementById('floating-btns').classList.toggle('sidebar-open',sidebarOpen);
+  toggleBtn.textContent=sidebarOpen?'›':'‹';
+});
+
+function renderSidebar() {
+  const list=document.getElementById('course-list'); list.innerHTML='';
+  state.courses.forEach((group,gi)=>{
+    const gDiv=document.createElement('div'); gDiv.className='course-group';
+    const hdr=document.createElement('div'); hdr.className='course-group-header';
+    hdr.innerHTML=`<span class="course-group-name">${group.name}</span>
+      <div class="course-group-actions">
+        <button class="group-add-btn" title="Agregar sub-curso" onclick="addSubCourse(${gi})">＋</button>
+        <button class="group-edit-btn" title="Editar" onclick="editGroupName(${gi})">✎</button>
+        <button class="group-del-btn" title="Eliminar" onclick="deleteGroup(${gi})">✕</button>
+        <span class="course-group-arrow ${group.expanded?'':'collapsed'}">▾</span>
+      </div>`;
+    hdr.querySelector('.course-group-name').addEventListener('click',()=>{group.expanded=!group.expanded;renderSidebar();});
+    hdr.querySelector('.course-group-arrow').addEventListener('click',()=>{group.expanded=!group.expanded;renderSidebar();});
+    const ul=document.createElement('ul'); ul.className='subcourses'; ul.style.display=group.expanded?'block':'none';
+    group.sub.forEach((sub,si)=>{
+      const li=document.createElement('li');
+      li.className='subcourse-item'+(state.activeCourse?.subId===sub.id?' active':'');
+      li.innerHTML=`<span class="sc-icon"></span><span class="sc-name">${sub.name}</span>
+        <span class="sc-actions">
+          <button title="Editar" onclick="editSubName(${gi},${si})">✎</button>
+          <button title="Eliminar" onclick="deleteSubCourse(${gi},${si})">✕</button>
+        </span>`;
+      li.querySelector('.sc-name').addEventListener('click',()=>selectCourse(gi,si));
+      li.querySelector('.sc-icon').addEventListener('click',()=>selectCourse(gi,si));
+      ul.appendChild(li);
+    });
+    gDiv.appendChild(hdr); gDiv.appendChild(ul); list.appendChild(gDiv);
+  });
+}
+function editGroupName(gi){openModal('Editar nombre del grupo',state.courses[gi].name,v=>{state.courses[gi].name=v;renderSidebar();});}
+function deleteGroup(gi){
+  if(!confirm(`¿Eliminar "${state.courses[gi].name}" y todos sus cursos?`))return;
+  state.courses.splice(gi,1);
+  if(state.activeCourse&&!state.courses.some(g=>g.sub.some(s=>s.id===state.activeCourse.subId))){state.activeCourse=null;showNoCourse();}
+  renderSidebar();
+}
+function addSubCourse(gi){openModal('Nuevo sub-curso','',v=>{state.courses[gi].sub.push({id:'sc_'+Date.now(),name:v});state.courses[gi].expanded=true;renderSidebar();});}
+function editSubName(gi,si){
+  openModal('Editar nombre del curso',state.courses[gi].sub[si].name,v=>{
+    state.courses[gi].sub[si].name=v;
+    if(state.activeCourse?.subId===state.courses[gi].sub[si].id)document.getElementById('current-course-title').textContent=v;
+    renderSidebar();
+  });
+}
+function deleteSubCourse(gi,si){
+  const sub=state.courses[gi].sub[si];
+  if(!confirm(`¿Eliminar "${sub.name}"?`))return;
+  state.courses[gi].sub.splice(si,1);
+  if(state.activeCourse?.subId===sub.id){state.activeCourse=null;showNoCourse();}
+  renderSidebar();
+}
+document.getElementById('btn-add-course').addEventListener('click',()=>{
+  openModal('Nuevo grupo de cursos','',v=>{state.courses.push({id:'g_'+Date.now(),name:v,expanded:true,sub:[]});renderSidebar();});
+});
+
+// ── SELECT COURSE ─────────────────────────────────────────────────────────────
+function selectCourse(gi,si){
+  const g=state.courses[gi],s=g.sub[si];
+  state.activeCourse={parentId:g.id,subId:s.id,parentName:g.name,subName:s.name};
+  state.activeGroup='all'; state.editMode=false;
+  const d=ensureData(s.id);
+  state.criteriaGroup=getGroups(s.id)[0]||'1';
+  renderSidebar(); renderCourseView();
+}
+function showNoCourse(){
+  document.getElementById('no-course-msg').style.display='';
+  document.getElementById('course-view').style.display='none';
+}
+
+// ── COURSE VIEW ───────────────────────────────────────────────────────────────
+function renderCourseView(){
+  if(!state.activeCourse){showNoCourse();return;}
+  document.getElementById('no-course-msg').style.display='none';
+  document.getElementById('course-view').style.display='';
+  const {parentName,subName}=state.activeCourse;
+  document.getElementById('parent-course-label').textContent=parentName;
+  document.getElementById('current-course-title').textContent=subName;
+  renderEvalTabs();
+  renderGroupTabs();
+  renderStudentTable();
+  renderCriteriaTable();
+  renderGroupSelects();
+}
+
+// ── EVALUATION TABS ───────────────────────────────────────────────────────────
+function renderEvalTabs(){
+  const d=ensureData(state.activeCourse.subId);
+  const row=document.getElementById('eval-tabs-row');
+  // Remove old tabs (all except the + button)
+  [...row.querySelectorAll('.eval-tab')].forEach(el=>el.remove());
+  const addBtn=document.getElementById('btn-add-eval');
+
+  d.evals.forEach((ev,idx)=>{
+    const tab=document.createElement('div');
+    tab.className='eval-tab'+(d.activeEvalIdx===idx?' active':'');
+
+    const nameSpan=document.createElement('span');
+    nameSpan.textContent=ev.name; nameSpan.style.cursor='pointer';
+    nameSpan.addEventListener('click',()=>switchEval(idx));
+
+    const renameBtn=document.createElement('button');
+    renameBtn.className='et-rename'; renameBtn.textContent='✎'; renameBtn.title='Renombrar';
+    renameBtn.addEventListener('click',e=>{e.stopPropagation();renameEval(idx);});
+
+    const delBtn=document.createElement('button');
+    delBtn.className='et-del'; delBtn.textContent='×'; delBtn.title='Eliminar evaluación';
+    delBtn.addEventListener('click',e=>{e.stopPropagation();deleteEval(idx);});
+
+    tab.appendChild(nameSpan);
+    tab.appendChild(renameBtn);
+    if(d.evals.length>1) tab.appendChild(delBtn); // can't delete last eval
+    row.insertBefore(tab, addBtn);
+  });
+
+  // Update column N label to show current eval name
+  document.getElementById('col-n-label').textContent=d.evals[d.activeEvalIdx].name;
+}
+
+function switchEval(idx){
+  const d=ensureData(state.activeCourse.subId);
+  d.activeEvalIdx=idx;
+  state.criteriaGroup=getGroups(state.activeCourse.subId)[0]||'1';
+  renderEvalTabs();
+  renderStudentTable();
+  renderCriteriaTable();
+  renderGroupSelects();
+}
+
+function addEval(){
+  const d=ensureData(state.activeCourse.subId);
+  const existing=d.evals.map(e=>e.name);
+  let num=d.evals.length+1;
+  let name='T'+num;
+  while(existing.includes(name)){num++;name='T'+num;}
+  const newEval=makeEval(name);
+  
+  // Heredar el grupo que el alumno tiene en la evaluación ACTUAL visible
+  // en lugar de su grupo base, para que T2 sea idéntica a T1 al nacer.
+  d.students.forEach(s=>{
+    if(!s.evalGroups) s.evalGroups={};
+    s.evalGroups[newEval.id] = getStudentGroup(s); 
+  });
+  
+  d.evals.push(newEval);
+  d.activeEvalIdx=d.evals.length-1;
+  state.criteriaGroup=getGroups(state.activeCourse.subId)[0]||'1';
+  renderEvalTabs();
+  renderStudentTable();
+  renderCriteriaTable();
+  renderGroupSelects();
+}
+
+function renameEval(idx){
+  const d=ensureData(state.activeCourse.subId);
+  openModal('Renombrar evaluación',d.evals[idx].name,v=>{
+    d.evals[idx].name=v;
+    renderEvalTabs();
+  });
+}
+
+function deleteEval(idx){
+  const d=ensureData(state.activeCourse.subId);
+  if(d.evals.length<=1){alert('Debe haber al menos una evaluación.');return;}
+  if(!confirm(`¿Eliminar la evaluación "${d.evals[idx].name}"? Se perderán sus criterios y notas.`))return;
+  d.evals.splice(idx,1);
+  if(d.activeEvalIdx>=d.evals.length)d.activeEvalIdx=d.evals.length-1;
+  renderEvalTabs();
+  renderStudentTable();
+  renderCriteriaTable();
+  renderGroupSelects();
+}
+
+// ── GROUPS ────────────────────────────────────────────────────────────────────
+function getGroups(subId){
+  const d=ensureData(subId);
+  // If this is the active course, use getStudentGroup (respects per-eval overrides)
+  // Otherwise use base group
+  const isActive=state.activeCourse?.subId===subId;
+  const nums=[...new Set(d.students.filter(s=>!s._sep).map(s=>{
+    if(isActive) return String(getStudentGroup(s));
+    return String(s.group);
+  }).filter(Boolean))];
+  return nums.sort((a,b)=>Number(a)-Number(b));
+}
+function renderGroupTabs(){
+  const groups=getGroups(state.activeCourse.subId);
+  const tabs=document.getElementById('group-tabs'); tabs.innerHTML='';
+  
+  const mk=(label,val)=>{
+    const btn=document.createElement('button'); 
+    btn.className='gtab'+(state.activeGroup===val?' active':'');
+    btn.textContent=label; 
+    
+    btn.onclick=()=>{
+      state.activeGroup=val;
+      // Sincronización automática: Si no es "Todos", forzamos el criterio a coincidir
+      if(val !== 'all') {
+        state.criteriaGroup = val;
+      }
+      
+      renderGroupTabs();
+      renderStudentTable();
+      renderGroupSelects(); // Refresca el selector (para bloquearlo o desbloquearlo)
+      renderCriteriaTable(); // Refresca las notas del criterio
+    };
+    
+    tabs.appendChild(btn);
+  };
+  
+  mk('Todos','all'); 
+  groups.forEach(g=>mk(g,g));
+}
+
+// ── STUDENT TABLE + DRAG ──────────────────────────────────────────────────────
+let dragSrcId=null;
+
+function getStudentGroup(student) {
+  // Returns the effective group for the student in the current eval
+  const d = ensureData(state.activeCourse.subId);
+  const ev = d.evals[d.activeEvalIdx];
+  if (!d.syncGroups && student.evalGroups && student.evalGroups[ev.id] !== undefined) {
+    return student.evalGroups[ev.id];
+  }
+  return student.group;
+}
+
+function getStudentNote(student){
+  const ev=currentEval(); if(!ev)return null;
+  const grp=String(getStudentGroup(student));
+  return ev.groupScores[grp]?.__final??null;
+}
+
+function renderStudentTable(){
+  const subId=state.activeCourse.subId;
+  const d=ensureData(subId);
+  const tbody=document.getElementById('student-tbody'); tbody.innerHTML='';
+  document.getElementById('student-table').classList.toggle('edit-mode',state.editMode);
+
+  // Update sync toggle UI
+  const chk=document.getElementById('sync-group-chk');
+  chk.checked=d.syncGroups;
+  document.getElementById('sync-group-status').textContent=d.syncGroups?'ON':'OFF';
+  document.getElementById('sync-group-status').style.color=d.syncGroups?'#5a9a5a':'#aaa';
+
+  const visible=state.activeGroup==='all'?d.students:d.students.filter(s=>{
+    const g=getStudentGroup(s);
+    return String(g)===state.activeGroup;
+  });
+
+  if(!visible.length){
+    tbody.innerHTML=`<tr><td colspan="6" style="text-align:center;padding:20px;color:#aaa;font-size:13px">Sin alumnos${state.activeGroup!=='all'?' en este grupo':''}</td></tr>`;
+    return;
+  }
+
+  visible.forEach(student=>{
+    if(student._sep){
+      const tr=document.createElement('tr');tr.className='sep-row';tr.dataset.id=student.id;tr.draggable=true;
+      for(let i=0;i<4;i++){const td=document.createElement('td');tr.appendChild(td);}
+      const tdDel=document.createElement('td');tdDel.style.pointerEvents='all';tdDel.style.textAlign='center';
+      const db=document.createElement('button');db.className='sep-del-btn';db.textContent='×';db.title='Eliminar separador';
+      db.onclick=()=>{d.students=d.students.filter(s=>s.id!==student.id);renderStudentTable();};
+      tdDel.appendChild(db);tr.appendChild(tdDel);
+      tr.addEventListener('dragstart',e=>{if(!state.editMode)return;dragSrcId=student.id;tr.classList.add('dragging');e.dataTransfer.effectAllowed='move';});
+      tr.addEventListener('dragend',()=>tr.classList.remove('dragging'));
+      tr.addEventListener('dragover',e=>{if(!state.editMode||!dragSrcId||dragSrcId===student.id)return;e.preventDefault();document.querySelectorAll('#student-tbody tr').forEach(r=>r.classList.remove('drag-over'));tr.classList.add('drag-over');});
+      tr.addEventListener('dragleave',()=>tr.classList.remove('drag-over'));
+      tr.addEventListener('drop',e=>{e.preventDefault();if(!state.editMode||!dragSrcId||dragSrcId===student.id)return;tr.classList.remove('drag-over');const fi=d.students.findIndex(s=>s.id===dragSrcId),ti=d.students.findIndex(s=>s.id===student.id);if(fi<0||ti<0)return;const[mv]=d.students.splice(fi,1);d.students.splice(ti,0,mv);dragSrcId=null;renderStudentTable();});
+      tbody.appendChild(tr);return;
+    }
+    const note=getStudentNote(student);
+    const cls=note===null?'gray':note>=13?'green':'red';
+    const disp=note!==null?note:'—';
+    const grp=getStudentGroup(student);
+    const isDelegate=d.delegateId===student.id;
+    const tr=document.createElement('tr'); tr.dataset.id=student.id;
+    if(student.warned) tr.classList.add('row-warned');
+
+    // drag handle
+    const tdDrag=document.createElement('td'); tdDrag.className='td-drag'; tdDrag.textContent='⠿';
+
+    // group
+    const tdG=document.createElement('td'); tdG.className='td-group';
+    const gSpan=document.createElement('span'); gSpan.textContent=grp||'—'; gSpan.title='Doble clic para editar'; gSpan.style.cursor='pointer';
+    gSpan.addEventListener('dblclick',()=>startEditGroup(student,gSpan));
+    tdG.appendChild(gSpan);
+
+    // name (bold if delegate) + inline indicators
+    const tdN=document.createElement('td'); tdN.className='td-name';
+    tdN.style.fontWeight=isDelegate?'700':'400';
+    tdN.title='Doble clic para editar'; tdN.style.cursor='pointer';
+
+    const nameSpan=document.createElement('span'); nameSpan.textContent=student.name;
+    tdN.appendChild(nameSpan);
+    if(isDelegate){
+      const crown=document.createElement('span');
+      crown.style.cssText='font-size:10px;color:#222;margin-left:5px;'; crown.title='Delegado'; crown.textContent='●';
+      tdN.appendChild(crown);
+    }
+    if(student.warned){
+      const warnIco=document.createElement('span');
+      warnIco.style.cssText='font-size:11px;color:#e07000;margin-left:4px;'; warnIco.title='Advertencia'; warnIco.textContent='⚠';
+      tdN.appendChild(warnIco);
+    }
+    if(student.comment&&student.comment.trim()){
+      const dot=document.createElement('span');
+      dot.style.cssText='font-size:10px;color:#5588cc;margin-left:4px;'; dot.title='Tiene comentario'; dot.textContent='●';
+      tdN.appendChild(dot);
+    }
+    tdN.addEventListener('dblclick',()=>startEditName(student,tdN));
+
+    // actions cell (⚠ ℹ ×) — left of the note badge
+    const tdAct=document.createElement('td'); tdAct.className='td-actions';
+
+    const warnBtn=document.createElement('button');
+    warnBtn.className='student-action-btn btn-warn';
+    warnBtn.title=student.warned?'Quitar advertencia':'Marcar como advertencia';
+    warnBtn.textContent='⚠';
+    warnBtn.onclick=()=>{ student.warned=!student.warned; renderStudentTable(); };
+
+    const infoBtn=document.createElement('button');
+    infoBtn.className='student-action-btn btn-info';
+    infoBtn.title='Ver/editar comentario';
+    infoBtn.textContent='ℹ';
+    infoBtn.onclick=()=>openCommentModal(student);
+
+    const delBtn=document.createElement('button');
+    delBtn.className='student-action-btn btn-del-student';
+    delBtn.title='Eliminar alumno';
+    delBtn.textContent='×';
+    delBtn.onclick=()=>openDeleteModal(student);
+
+    tdAct.appendChild(warnBtn); tdAct.appendChild(infoBtn); tdAct.appendChild(delBtn);
+
+    // note badge — rightmost
+    const tdNote=document.createElement('td'); tdNote.className='td-note';
+    tdNote.innerHTML=`<span class="note-badge ${cls}">${disp}</span>`;
+
+    tr.appendChild(tdDrag); tr.appendChild(tdG); tr.appendChild(tdN); tr.appendChild(tdAct); tr.appendChild(tdNote);
+
+    tr.draggable=state.editMode;
+    tr.addEventListener('dragstart',e=>{if(!state.editMode)return;dragSrcId=student.id;tr.classList.add('dragging');e.dataTransfer.effectAllowed='move';});
+    tr.addEventListener('dragend',()=>tr.classList.remove('dragging'));
+    tr.addEventListener('dragover',e=>{if(!state.editMode||!dragSrcId||dragSrcId===student.id)return;e.preventDefault();document.querySelectorAll('#student-tbody tr').forEach(r=>r.classList.remove('drag-over'));tr.classList.add('drag-over');});
+    tr.addEventListener('dragleave',()=>tr.classList.remove('drag-over'));
+    tr.addEventListener('drop',e=>{
+      e.preventDefault(); if(!state.editMode||!dragSrcId||dragSrcId===student.id)return;
+      tr.classList.remove('drag-over');
+      const all=d.students;
+      const fi=all.findIndex(s=>s.id===dragSrcId), ti=all.findIndex(s=>s.id===student.id);
+      if(fi<0||ti<0)return;
+      const [mv]=all.splice(fi,1); all.splice(ti,0,mv);
+      dragSrcId=null; renderStudentTable();
+    });
+    tbody.appendChild(tr);
+  });
+
+  // Update delegate select
+  renderDelegateSelect();
+}
+
+function startEditName(student,td){
+  if(td.querySelector('input'))return;
+  const orig=student.name; td.innerHTML='';
+  const inp=document.createElement('input'); inp.value=orig;
+  inp.style.cssText='width:100%;border:1.5px solid #888;border-radius:5px;padding:3px 7px;font-size:14px;outline:none;';
+  td.appendChild(inp); inp.focus(); inp.select();
+  const commit=()=>{student.name=inp.value.trim()||orig;renderStudentTable();};
+  inp.addEventListener('blur',commit);
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter')inp.blur();if(e.key==='Escape'){student.name=orig;renderStudentTable();}});
+}
+// ── SYNC GROUPS ───────────────────────────────────────────────────────────────
+let pendingSyncValue=null;
+function onSyncGroupChange(){
+  const chk=document.getElementById('sync-group-chk');
+  const d=ensureData(state.activeCourse.subId);
+  const toEnable=chk.checked;
+  // Revert checkbox — wait for confirmation
+  chk.checked=d.syncGroups;
+  pendingSyncValue=toEnable;
+  const title=toEnable?'Activar sincronización de grupos':'Desactivar sincronización de grupos';
+  const text=toEnable
+    ? 'Al activar, todos los alumnos tendrán el mismo grupo en todas las evaluaciones (basado en su grupo base). Los grupos individuales por evaluación se perderán.'
+    : 'Al desactivar, podrás asignar grupos diferentes por evaluación. Los grupos base se mantienen en T1.';
+  document.getElementById('sync-modal-title').textContent=title;
+  document.getElementById('sync-modal-text').textContent=text;
+  document.getElementById('sync-confirm-input').value='';
+  document.getElementById('sync-modal-overlay').classList.add('show');
+  setTimeout(()=>document.getElementById('sync-confirm-input').focus(),50);
+}
+function cancelSyncChange(){
+  document.getElementById('sync-modal-overlay').classList.remove('show');
+  pendingSyncValue=null;
+  // Restore checkbox to actual state
+  const d=ensureData(state.activeCourse.subId);
+  document.getElementById('sync-group-chk').checked=d.syncGroups;
+}
+function applySyncChange(){
+  const val=document.getElementById('sync-confirm-input').value.trim().toLowerCase();
+  if(val!=='confirmar'){
+    document.getElementById('sync-confirm-input').style.borderColor='#c00';
+    document.getElementById('sync-confirm-input').focus(); return;
+  }
+  document.getElementById('sync-modal-overlay').classList.remove('show');
+  
+  const d = ensureData(state.activeCourse.subId);
+  const isActivating = pendingSyncValue;
+
+  if (isActivating && !d.syncGroups) {
+    // ACTIVAR: Tomamos los grupos de la vista actual y los convertimos en el grupo base universal
+    d.students.forEach(s => {
+      s.group = getStudentGroup(s); 
+      s.evalGroups = {}; // Limpiamos las excepciones independientes
+    });
+  } else if (!isActivating && d.syncGroups) {
+    // DESACTIVAR: Copiamos el grupo universal actual a cada una de las evaluaciones (T1, T2...)
+    // para que no empiecen desde cero (-), sino que hereden el último grupo asignado.
+    d.students.forEach(s => {
+      if(!s.evalGroups) s.evalGroups = {};
+      d.evals.forEach(ev => {
+        s.evalGroups[ev.id] = s.group; 
+      });
+    });
+  }
+
+  d.syncGroups = isActivating;
+  pendingSyncValue = null;
+  
+  renderGroupTabs();
+  renderStudentTable();
+  renderGroupSelects();
+  renderCriteriaTable();
+}
+document.getElementById('sync-confirm-input').addEventListener('input',e=>{e.target.style.borderColor='#ddd';});
+document.getElementById('sync-modal-overlay').addEventListener('click',e=>{if(e.target===document.getElementById('sync-modal-overlay'))cancelSyncChange();});
+
+// ── COMMENT MODAL ─────────────────────────────────────────────────────────────
+let commentStudentId=null;
+function openCommentModal(student){
+  commentStudentId=student.id;
+  document.getElementById('comment-modal-title').textContent='📝 Comentario';
+  document.getElementById('comment-modal-student').textContent=student.name;
+  document.getElementById('comment-textarea').value=student.comment||'';
+  document.getElementById('comment-modal-overlay').classList.add('show');
+  setTimeout(()=>document.getElementById('comment-textarea').focus(),50);
+}
+function closeCommentModal(){
+  document.getElementById('comment-modal-overlay').classList.remove('show');
+  commentStudentId=null;
+}
+function saveComment(){
+  if(!commentStudentId)return;
+  const d=ensureData(state.activeCourse.subId);
+  const student=d.students.find(s=>s.id===commentStudentId);
+  if(student) student.comment=document.getElementById('comment-textarea').value;
+  closeCommentModal();
+  renderStudentTable();
+}
+document.getElementById('comment-modal-overlay').addEventListener('click',e=>{if(e.target===document.getElementById('comment-modal-overlay'))closeCommentModal();});
+
+// ── DELEGATE ──────────────────────────────────────────────────────────────────
+function renderDelegateSelect(){
+  const d=ensureData(state.activeCourse.subId);
+  const sel=document.getElementById('delegate-select');
+  const prev=sel.value;
+  sel.innerHTML='<option value="">— Sin delegado —</option>';
+  d.students.forEach(s=>{
+    const o=document.createElement('option'); o.value=s.id; o.textContent=s.name;
+    sel.appendChild(o);
+  });
+  sel.value=d.delegateId||'';
+}
+let pendingDelegateId=null;
+function confirmSetDelegate(){
+  const sel=document.getElementById('delegate-select');
+  const d=ensureData(state.activeCourse.subId);
+  const newId=sel.value||null;
+  if(newId===d.delegateId)return;
+  pendingDelegateId=newId;
+  const name=newId?d.students.find(s=>s.id===newId)?.name:'ninguno';
+  document.getElementById('delegate-modal-text').innerHTML=
+    newId?`¿Asignar a <strong>${name}</strong> como delegado del grupo?`:'¿Remover al delegado actual?';
+  document.getElementById('delegate-modal-overlay').classList.add('show');
+}
+function applyDelegate(){
+  const d=ensureData(state.activeCourse.subId);
+  d.delegateId=pendingDelegateId;
+  document.getElementById('delegate-modal-overlay').classList.remove('show');
+  pendingDelegateId=null;
+  renderStudentTable();
+}
+document.getElementById('delegate-modal-overlay').addEventListener('click',e=>{if(e.target===document.getElementById('delegate-modal-overlay')){document.getElementById('delegate-modal-overlay').classList.remove('show');pendingDelegateId=null;}});
+
+function renderGroupSelects(){
+  const subId=state.activeCourse.subId;
+  const groups=getGroups(subId);
+  const sel=document.getElementById('new-student-group');
+  sel.innerHTML='';
+  const maxG=groups.length>0?Math.max(...groups.map(Number)):0;
+  
+  // Opción por defecto "-"
+  const optNone = document.createElement('option');
+  optNone.value = ''; optNone.textContent = '-';
+  sel.appendChild(optNone);
+  
+  // Agregar los números de grupos existentes
+  for(let i=1;i<=maxG+1;i++){
+    const o=document.createElement('option');
+    o.value=i;
+    o.textContent=i;
+    sel.appendChild(o);
+  }
+  
+  // FORZAR a que la opción seleccionada sea siempre "-"
+  sel.value = '';
+
+  const csel=document.getElementById('criteria-group-select');
+  const cprev=csel.value||state.criteriaGroup; csel.innerHTML='';
+  
+  if(!groups.length){
+    const o=document.createElement('option');
+    o.value='1';
+    o.textContent='—';
+    csel.appendChild(o);
+  } else {
+    groups.forEach(g=>{
+      const o=document.createElement('option');
+      o.value=g;
+      o.textContent=g;
+      csel.appendChild(o);
+    });
+  }
+
+  // LÓGICA DE BLOQUEO SEGÚN PESTAÑA
+  if (state.activeGroup !== 'all') {
+    state.criteriaGroup = state.activeGroup;
+    csel.disabled = true;
+    csel.style.opacity = '0.6';
+    csel.style.cursor = 'not-allowed';
+  } else {
+    csel.disabled = false;
+    csel.style.opacity = '1';
+    csel.style.cursor = 'pointer';
+  }
+
+  csel.value=state.criteriaGroup; 
+  if(!csel.value&&groups.length)csel.value=groups[0];
+  state.criteriaGroup=csel.value;
+}    
+function onCriteriaGroupChange(){state.criteriaGroup=document.getElementById('criteria-group-select').value;renderCriteriaTable();}
+
+// ── EDIT MODE ─────────────────────────────────────────────────────────────────
+function toggleEditMode(){
+  state.editMode=!state.editMode;
+  const btn=document.getElementById('btn-edit-mode');
+  btn.classList.toggle('active',state.editMode);
+  document.getElementById('edit-mode-banner').classList.toggle('visible',state.editMode);
+  renderStudentTable();
+}
+
+function startEditGroup(student,span){
+  const td=span.parentElement; if(td.querySelector('input'))return;
+  const d=ensureData(state.activeCourse.subId);
+  const ev=d.evals[d.activeEvalIdx];
+  const orig=getStudentGroup(student);
+  const maxG=Math.max(...d.students.map(s=>Number(getStudentGroup(s))||0),0);
+  td.innerHTML='';
+  const inp=document.createElement('input'); inp.type='number'; inp.min=1; inp.max=maxG+1; inp.value=orig||'';
+  inp.style.cssText='width:40px;border:1.5px solid #888;border-radius:5px;padding:2px 4px;font-size:13px;font-weight:700;text-align:center;outline:none;';
+  td.appendChild(inp); inp.focus(); inp.select();
+  const commit=()=>{
+    const val = inp.value;
+    let newGrp;
+    // Permitir borrar el input para dejarlo "Sin grupo"
+    if(val === ''){
+        newGrp = "";
+    } else {
+        const v=parseInt(val);
+        newGrp = (!isNaN(v)&&v>0) ? v : orig;
+    }
+    
+    if(d.syncGroups){
+      student.group=newGrp;
+      student.evalGroups={};
+    } else {
+      student.evalGroups[ev.id]=newGrp;
+    }
+    renderGroupTabs();renderStudentTable();renderGroupSelects();renderCriteriaTable();
+  };
+  inp.addEventListener('blur',commit);
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter')inp.blur();if(e.key==='Escape')renderStudentTable();});
+}
+
+// ── STUDENTS CRUD ─────────────────────────────────────────────────────────────
+function addStudent(){
+  const name=document.getElementById('new-student-name').value.trim();
+  const groupVal=document.getElementById('new-student-group').value;
+  if(!name){document.getElementById('new-student-name').focus();return;}
+  ensureData(state.activeCourse.subId).students.push({
+    id:'st_'+Date.now(), name, group: groupVal ? Number(groupVal) : "", // Asigna string vacío si es '-'
+    comment:'', warned:false, evalGroups:{}
+  });
+  document.getElementById('new-student-name').value='';
+  renderGroupTabs();renderStudentTable();renderGroupSelects();renderCriteriaTable();
+}
+
+function addSeparator(){
+  if(!state.activeCourse)return;
+  ensureData(state.activeCourse.subId).students.push({id:'sep_'+Date.now(),_sep:true});
+  renderStudentTable();
+}
+
+let pendingDeleteId=null;
+function openDeleteModal(student){
+  pendingDeleteId=student.id;
+  document.getElementById('delete-modal-text').innerHTML=
+    `¿Eliminar a <strong>${student.name}</strong>? Se eliminará de todas las evaluaciones del curso y no se puede deshacer.`;
+  document.getElementById('delete-modal-overlay').classList.add('show');
+}
+function closeDeleteModal(){
+  document.getElementById('delete-modal-overlay').classList.remove('show');
+  pendingDeleteId=null;
+}
+function confirmDeleteStudent(){
+  if(!pendingDeleteId)return;
+  const d=ensureData(state.activeCourse.subId);
+  d.students=d.students.filter(s=>s.id!==pendingDeleteId);
+  if(d.delegateId===pendingDeleteId)d.delegateId=null;
+  closeDeleteModal();
+  renderGroupTabs();renderStudentTable();renderGroupSelects();renderCriteriaTable();
+}
+document.getElementById('delete-modal-overlay').addEventListener('click',e=>{if(e.target===document.getElementById('delete-modal-overlay'))closeDeleteModal();});
+
+// ── CRITERIA ──────────────────────────────────────────────────────────────────
+function renderCriteriaTable(){
+  const subId=state.activeCourse.subId;
+  const d=ensureData(subId);
+  const ev=d.evals[d.activeEvalIdx];
+  const grp=state.criteriaGroup;
+  if(!ev.groupScores[grp])ev.groupScores[grp]={};
+  const tbody=document.getElementById('criteria-tbody'); tbody.innerHTML='';
+
+  if(!ev.criteria.length){
+    tbody.innerHTML='<tr><td colspan="2" style="text-align:center;padding:20px;color:#aaa;font-size:13px">Sin criterios</td></tr>';
+    document.getElementById('final-note-badge').textContent='—';
+    document.getElementById('final-note-badge').className='note-badge gray'; return;
+  }
+
+  ev.criteria.forEach((crit,idx)=>{
+    const val=ev.groupScores[grp][idx]??'';
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class="td-criteria-name">${crit.name}
+      <button onclick="deleteCriteria(${idx})" style="background:none;border:none;cursor:pointer;color:#ddd;font-size:14px;margin-left:4px;vertical-align:middle" title="Eliminar">×</button></td>
+      <td class="td-criteria-score"><input class="criteria-score-input" type="number" min="0" value="${val}" data-idx="${idx}" placeholder="—"/></td>`;
+    tbody.appendChild(tr);
+  });
+
+  tbody.querySelectorAll('.criteria-score-input').forEach(inp=>{
+    inp.addEventListener('input',()=>{
+      const idx=Number(inp.dataset.idx);
+      const v=inp.value===''?null:Math.max(0,Number(inp.value));
+      ev.groupScores[grp][idx]=v;
+      updateFinalNote(ev,grp);
+      applyGroupNote(d,ev,grp);
+    });
+  });
+  updateFinalNote(ev,grp);
+}
+
+function updateFinalNote(ev,grp){
+  const scores=Object.entries(ev.groupScores[grp]||{})
+    .filter(([k,v])=>!isNaN(Number(k))&&v!==null&&v!==undefined).map(([,v])=>v);
+  const badge=document.getElementById('final-note-badge');
+  if(!scores.length){badge.textContent='—';badge.className='note-badge gray';ev.groupScores[grp].__final=undefined;return;}
+  const total=scores.reduce((a,b)=>a+b,0);
+  badge.textContent=total;
+  badge.className='note-badge '+(total>=13?'green':'red');
+  ev.groupScores[grp].__final=total;
+}
+
+function applyGroupNote(d,ev,grp){
+  // notes are derived at render time from groupScores via getStudentNote
+  renderStudentTable();
+}
+
+function addCriteria(){
+  const name=document.getElementById('new-criteria-name').value.trim();
+  if(!name){document.getElementById('new-criteria-name').focus();return;}
+  const d=ensureData(state.activeCourse.subId);
+  d.evals[d.activeEvalIdx].criteria.push({id:'cr_'+Date.now(),name});
+  document.getElementById('new-criteria-name').value='';renderCriteriaTable();
+}
+function deleteCriteria(idx){
+  const d=ensureData(state.activeCourse.subId);
+  const ev=d.evals[d.activeEvalIdx];
+  ev.criteria.splice(idx,1);
+  Object.keys(ev.groupScores).forEach(grp=>{
+    const s=ev.groupScores[grp];const ns={};
+    Object.keys(s).forEach(k=>{const ki=Number(k);if(isNaN(ki)){ns[k]=s[k];return;}if(ki<idx)ns[ki]=s[k];else if(ki>idx)ns[ki-1]=s[k];});
+    ev.groupScores[grp]=ns;
+  });
+  renderCriteriaTable();
+}
+
+// ── CALCULADORA DE PROMEDIOS ──────────────────────────────────────────────────
+let isCalcEditMode = false;
+
+function openCalcModal() {
+  if (!state.calcConfig) { // Respaldo por si abres una BD antigua
+    state.calcConfig = [{name: 'T1', pct: 20}, {name: 'T2', pct: 35}, {name: 'T3', pct: 45}];
+  }
+  isCalcEditMode = false;
+  document.getElementById('calc-edit-btn').style.color = '#aaa';
+  document.getElementById('calc-add-btn').style.display = 'none';
+  renderCalcTable();
+  document.getElementById('calc-modal-overlay').classList.add('show');
+}
+
+function closeCalcModal() {
+  if(isCalcEditMode) toggleCalcEditMode(); // Auto-guarda si cierras mientras editas
+  document.getElementById('calc-modal-overlay').classList.remove('show');
+}
+
+function toggleCalcEditMode() {
+  isCalcEditMode = !isCalcEditMode;
+  const btn = document.getElementById('calc-edit-btn');
+  const addBtn = document.getElementById('calc-add-btn');
+  
+  if (!isCalcEditMode) {
+    // Guardar los cambios ingresados
+    const tbody = document.getElementById('calc-tbody');
+    const rows = tbody.querySelectorAll('tr');
+    const newConfig = [];
+    rows.forEach(tr => {
+      const nameInp = tr.querySelector('.calc-input-name');
+      const pctInp = tr.querySelector('.calc-input-pct');
+      if(nameInp && pctInp) {
+        newConfig.push({
+          name: nameInp.value.trim() || 'Eval',
+          pct: Number(pctInp.value) || 0
+        });
+      }
+    });
+    state.calcConfig = newConfig;
+    btn.style.color = '#aaa';
+    addBtn.style.display = 'none';
+  } else {
+    btn.style.color = '#f0a500';
+    addBtn.style.display = 'block';
+  }
+  renderCalcTable();
+}
+
+function renderCalcTable() {
+  const tbody = document.getElementById('calc-tbody');
+  tbody.innerHTML = '';
+  
+  // Ocultar/Mostrar la columna de borrar
+  const delColHeads = document.querySelectorAll('.calc-del-col');
+  delColHeads.forEach(th => th.style.display = isCalcEditMode ? 'table-cell' : 'none');
+
+  state.calcConfig.forEach((cfg, idx) => {
+    const tr = document.createElement('tr');
+    
+    if (isCalcEditMode) {
+      tr.innerHTML = `
+        <td><input class="calc-input-name" type="text" value="${cfg.name}" /></td>
+        <td><input class="calc-input-pct calc-input" type="number" value="${cfg.pct}" min="0" max="100" />%</td>
+        <td><span style="color:#bbb;font-size:11px">—</span></td>
+        <td class="calc-del-col" style="border:none;padding-left:4px">
+          <button onclick="removeCalcRow(${idx})" style="background:none;border:none;color:#e05050;cursor:pointer;font-size:18px;line-height:1" title="Eliminar fila">×</button>
+        </td>
+      `;
+    } else {
+      tr.innerHTML = `
+        <td>${cfg.name}</td>
+        <td>${cfg.pct}%</td>
+        <td><input class="calc-score-inp calc-input" type="number" min="0" max="20" placeholder="—" oninput="calculateCalcTotal()"/></td>
+      `;
+    }
+    tbody.appendChild(tr);
+  });
+  
+  calculateCalcTotal();
+}
+
+function calculateCalcTotal() {
+  const badge = document.getElementById('calc-final-score');
+  
+  if (isCalcEditMode) {
+     badge.textContent = '—';
+     badge.className = 'calc-note-badge';
+     return;
+  }
+  
+  const inputs = document.querySelectorAll('.calc-score-inp');
+  let total = 0;
+  let hasValues = false;
+
+  inputs.forEach((inp, idx) => {
+    const val = parseFloat(inp.value);
+    if (!isNaN(val)) {
+      hasValues = true;
+      const pct = state.calcConfig[idx].pct / 100;
+      total += val * pct;
+    }
+  });
+
+  if (!hasValues) {
+    badge.textContent = '—';
+    badge.className = 'calc-note-badge';
+  } else {
+    const finalScore = (Math.round(total * 10) / 10).toFixed(1); // Redondeo a 1 decimal
+    badge.textContent = finalScore;
+    badge.className = 'calc-note-badge ' + (total >= 13 ? 'green' : 'red');
+  }
+}
+
+function addCalcRow() {
+  state.calcConfig.push({ name: 'T'+(state.calcConfig.length+1), pct: 0 });
+  renderCalcTable();
+}
+
+function removeCalcRow(idx) {
+  state.calcConfig.splice(idx, 1);
+  renderCalcTable();
+}
+
+// ── IMPORT FROM EXCEL ─────────────────────────────────────────────────────────
+function openImportModal(){
+  if(!state.activeCourse)return;
+  const groups=getGroups(state.activeCourse.subId);
+  const maxG=groups.length>0?Math.max(...groups.map(Number)):0;
+  const sel=document.getElementById('import-group-select');sel.innerHTML='';
+  
+  // Agrega la opción por defecto "-"
+  const optNone = document.createElement('option'); 
+  optNone.value = ''; optNone.textContent = 'Sin grupo (-)'; 
+  sel.appendChild(optNone);
+  
+  for(let i=1;i<=maxG+1;i++){const o=document.createElement('option');o.value=i;o.textContent='Grupo '+i;sel.appendChild(o);}
+  
+  document.getElementById('import-textarea').value='';
+  document.getElementById('import-preview').textContent='';
+  document.getElementById('import-modal-overlay').classList.add('show');
+  setTimeout(()=>document.getElementById('import-textarea').focus(),50);
+}
+function closeImportModal(){document.getElementById('import-modal-overlay').classList.remove('show');}
+document.getElementById('import-textarea').addEventListener('input',()=>{
+  const names=parseImportText(document.getElementById('import-textarea').value);
+  const p=document.getElementById('import-preview');
+  if(!names.length){p.textContent='';return;}
+  p.textContent=`✓ Se importarán ${names.length} alumno${names.length!==1?'s':''}`;p.style.color='#2a7a2a';
+});
+function parseImportText(raw){return raw.split(/[\n\r\t]+/).map(s=>s.trim()).filter(s=>s.length>0);}
+function confirmImport(){
+  const names=parseImportText(document.getElementById('import-textarea').value);
+  const p=document.getElementById('import-preview');
+  if(!names.length){p.textContent='No se detectaron nombres.';p.style.color='#c00';return;}
+  
+  const groupVal=document.getElementById('import-group-select').value;
+  const group = groupVal ? Number(groupVal) : ""; // Asigna string vacío si es '-'
+  
+  const d=ensureData(state.activeCourse.subId);
+  names.forEach(name=>d.students.push({id:'st_'+Date.now()+Math.random(),name,group}));
+  closeImportModal();
+  renderGroupTabs();renderStudentTable();renderGroupSelects();renderCriteriaTable();
+}
+document.getElementById('import-modal-overlay').addEventListener('click',e=>{if(e.target===document.getElementById('import-modal-overlay'))closeImportModal();});
+
+// ── DATE HELPERS ──────────────────────────────────────────────────────────────
+function dateStamp(){
+  const now=new Date();
+  const day=now.getDate();
+  const months=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  return `${day}-${months[now.getMonth()]}`;
+}
+
+// ── PDF STYLES (shared) ───────────────────────────────────────────────────────
+const PDF_CSS=`body{font-family:Arial,sans-serif;padding:28px 32px;color:#222;font-size:12px;}
+h1{font-size:17px;margin-bottom:3px;color:#111;}
+h2{font-size:12px;color:#666;font-weight:normal;margin-bottom:16px;border-bottom:1px solid #ddd;padding-bottom:6px;}
+h3{font-size:13px;margin:20px 0 6px;color:#333;}
+table{width:100%;border-collapse:collapse;margin-bottom:4px;}
+th{background:#222;color:#fff;padding:6px 10px;text-align:left;font-size:11px;}
+th:first-child{text-align:center;width:50px;}
+th:nth-child(n+3), td:nth-child(n+3){text-align:center;width:60px;} /* Centra los criterios y nota final */
+td{padding:5px 10px;border-bottom:1px solid #eee;font-size:12px;}
+td:first-child{text-align:center;}
+tr:nth-child(even){background:#f8f8f8;}
+.green{color:#1a7a1a;font-weight:700;} .red{color:#c00;font-weight:700;} .gray{color:#777;}
+@media print{@page{margin:15mm;size:A4;}h3{page-break-before:auto;}}`;
+
+function buildStudentRows(students, evObj, dObj){
+  // CORRECCIÓN DEL BUG: Primero filtramos la lista, luego comprobamos si está vacía
+  const realStudents=students.filter(s=>!s._sep);
+  if(!realStudents.length) return '<tr><td colspan="3" style="color:#aaa;text-align:center;padding:10px">Sin alumnos</td></tr>';
+  
+  return realStudents.map(s=>{
+    let grp = s.group;
+    if (dObj && !dObj.syncGroups && s.evalGroups && s.evalGroups[evObj.id] !== undefined) {
+       grp = s.evalGroups[evObj.id];
+    }
+    grp = String(grp);
+    const note=evObj.groupScores[grp]?.__final??null;
+    const nota=note!==null?note:'—';
+    const cls=note===null?'gray':note>=13?'green':'red';
+    return `<tr><td>${grp||'—'}</td><td>${s.name}</td><td class="${cls}">${nota}</td></tr>`;
+  }).join('');
+}
+
+// ── INDIVIDUAL PDF ────────────────────────────────────────────────────────────
+function downloadPDF(){
+  if(!state.activeCourse){alert('Selecciona un curso primero.');return;}
+  const {subName,parentName}=state.activeCourse;
+  const d=ensureData(state.activeCourse.subId);
+  const ev=d.evals[d.activeEvalIdx];
+  const stamp=dateStamp();
+
+  const realStudents = d.students.filter(s => !s._sep);
+  const colsCount = 3 + ev.criteria.length; // Grupo + Nombre + Criterios + Nota Final
+
+  // 1. Crear las cabeceras dinámicas para cada criterio
+  let thCriteria = '';
+  ev.criteria.forEach(crit => {
+    thCriteria += `<th>${crit.name}</th>`;
+  });
+
+  // 2. Crear las filas de alumnos con sus notas de criterio individuales
+  let tbody = '';
+  if(!realStudents.length) {
+    tbody = `<tr><td colspan="${colsCount}" style="color:#aaa;text-align:center;padding:10px">Sin alumnos</td></tr>`;
+  } else {
+    tbody = realStudents.map(s => {
+      let grp = s.group;
+      if (!d.syncGroups && s.evalGroups && s.evalGroups[ev.id] !== undefined) {
+         grp = s.evalGroups[ev.id];
+      }
+      grp = String(grp);
+
+      // Extraer la nota individual de cada criterio
+      let tdCriteria = '';
+      ev.criteria.forEach((crit, idx) => {
+        const val = ev.groupScores[grp]?.[idx];
+        const disp = (val !== null && val !== undefined) ? val : '—';
+        tdCriteria += `<td>${disp}</td>`;
+      });
+
+      // Extraer la Nota Final
+      const note = ev.groupScores[grp]?.__final ?? null;
+      const nota = note !== null ? note : '—';
+      const cls = note === null ? 'gray' : note >= 13 ? 'green' : 'red';
+      
+      return `<tr><td>${grp||'—'}</td><td>${s.name}</td>${tdCriteria}<td class="${cls}">${nota}</td></tr>`;
+    }).join('');
+  }
+
+  // 3. Ensamblar el HTML final
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${subName} ${ev.name}</title>
+  <style>${PDF_CSS}</style></head><body>
+  <h1>${parentName} — ${subName} — ${ev.name}</h1>
+  <h2>${realStudents.length} alumno${realStudents.length!==1?'s':''} · ${stamp}</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Grupo</th>
+        <th>Nombre</th>
+        ${thCriteria}
+        <th>Nota Final</th>
+      </tr>
+    </thead>
+    <tbody>${tbody}</tbody>
+  </table>
+  <script>window.onload=()=>{window.print();}<\/script>
+  </body></html>`;
+
+  const fname=`${subName}_${ev.name}_${stamp}`.replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ _–-]/g,'_');
+  triggerDownload(html, fname+'.html');
+}
+
+// ── CONSOLIDADO MODAL ─────────────────────────────────────────────────────────
+function openConsolidadoModal(){
+  const evalNames=new Set();
+  state.courses.forEach(g=>g.sub.forEach(s=>{
+    const d=state.data[s.id];
+    if(d&&d.evals) d.evals.forEach(e=>evalNames.add(e.name));
+  }));
+
+  const sel=document.getElementById('consolidado-eval-select');
+  sel.innerHTML='';
+
+  const optTotal=document.createElement('option');
+  optTotal.value='__TOTAL__'; optTotal.textContent='Notas totales (todas las evaluaciones)';
+  sel.appendChild(optTotal);
+
+  if(evalNames.size){
+    [...evalNames].sort().forEach(name=>{
+      const o=document.createElement('option');o.value=name;o.textContent=name;sel.appendChild(o);
+    });
+  }
+  updateConsolidadoPreview();
+  sel.onchange=updateConsolidadoPreview;
+  document.getElementById('consolidado-modal-overlay').classList.add('show');
+}
+function closeConsolidadoModal(){document.getElementById('consolidado-modal-overlay').classList.remove('show');}
+document.getElementById('consolidado-modal-overlay').addEventListener('click',e=>{
+  if(e.target===document.getElementById('consolidado-modal-overlay'))closeConsolidadoModal();
+});
+
+function updateConsolidadoPreview(){
+  const evName=document.getElementById('consolidado-eval-select').value;
+  const preview=document.getElementById('consolidado-preview');
+  if(!evName){preview.textContent='';return;}
+  if(evName==='__TOTAL__'){
+    let cc=0,sc=0;
+    state.courses.forEach(g=>g.sub.forEach(s=>{const d=state.data[s.id];if(!d)return;cc++;sc+=d.students.length;}));
+    preview.textContent=`✓ Todos los cursos: ${cc} cursos · ${sc} alumnos con todas sus evaluaciones`;
+    preview.style.color='#2a7a2a'; return;
+  }
+  let courseCount=0, studentCount=0;
+  state.courses.forEach(g=>g.sub.forEach(s=>{
+    const d=state.data[s.id]; if(!d||!d.evals)return;
+    if(d.evals.find(e=>e.name===evName)){courseCount++;studentCount+=d.students.length;}
+  }));
+  preview.textContent=`✓ ${courseCount} curso${courseCount!==1?'s':''} · ${studentCount} alumno${studentCount!==1?'s':''}`;
+  preview.style.color='#2a7a2a';
+}
+
+function downloadConsolidado(){
+  const evName=document.getElementById('consolidado-eval-select').value;
+  if(!evName){alert('Selecciona una evaluación.');return;}
+  const stamp=dateStamp();
+  if(evName==='__TOTAL__'){downloadNotasTotales(stamp);return;}
+
+  let sections='';
+  state.courses.forEach(g=>{
+    g.sub.forEach(s=>{
+      const d=state.data[s.id]; if(!d||!d.evals)return;
+      const ev=d.evals.find(e=>e.name===evName); if(!ev)return;
+      sections+=`<h3>${g.name} — ${s.name}</h3>
+      <table><thead><tr><th>Grupo</th><th>Nombre</th><th>Nota (${evName})</th></tr></thead>
+      <tbody>${buildStudentRows(d.students, ev, d)}</tbody></table>`;
+    });
+  });
+  if(!sections){alert(`No hay cursos con evaluación "${evName}".`);return;}
+
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Consolidado ${evName}</title>
+  <style>${PDF_CSS}</style></head><body>
+  <h1>Consolidado — ${evName}</h1><h2>Generado el ${stamp}</h2>
+  ${sections}<script>window.onload=()=>{window.print();}<\/script></body></html>`;
+
+  const fname=`Consolidado_${evName}_${stamp}`.replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ _–-]/g,'_');
+  triggerDownload(html,fname+'.html');
+  closeConsolidadoModal();
+}
+
+function downloadNotasTotales(stamp){
+  const allEvalNames=[...new Set(
+    state.courses.flatMap(g=>g.sub.flatMap(s=>(state.data[s.id]?.evals||[]).map(e=>e.name)))
+  )].sort();
+
+  let sections='';
+  state.courses.forEach(g=>{
+    g.sub.forEach(s=>{
+      const d=state.data[s.id]; if(!d||!d.students.length)return;
+      const thEvals=allEvalNames.map(n=>`<th>${n}</th>`).join('');
+      
+      const rows=d.students.map(st=>{
+        const tdEvals=allEvalNames.map(evName=>{
+          const ev=d.evals?.find(e=>e.name===evName);
+          if(!ev)return'<td class="gray">—</td>';
+          
+          // Calculamos el grupo EXACTO que tuvo el alumno en esta evaluación específica
+          let grp = st.group;
+          if (!d.syncGroups && st.evalGroups && st.evalGroups[ev.id] !== undefined) {
+             grp = st.evalGroups[ev.id];
+          }
+          
+          const note=ev.groupScores[String(grp)]?.__final??null;
+          const cls=note===null?'gray':note>=13?'green':'red';
+          return`<td class="${cls}">${note!==null?note:'—'}</td>`;
+        }).join('');
+        
+        // Eliminada la columna de grupo, empieza directo con el nombre
+        return`<tr><td style="text-align:left">${st.name}</td>${tdEvals}</tr>`;
+      }).join('');
+      
+      sections+=`<h3>${g.name} — ${s.name}</h3>
+      <table><thead><tr><th style="text-align:left">Nombre</th>${thEvals}</tr></thead>
+      <tbody>${rows}</tbody></table>`;
+    });
+  });
+  
+  if(!sections){alert('No hay cursos con alumnos.');return;}
+
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Notas Totales</title>
+  <style>${PDF_CSS}
+  /* Ajuste de columnas: Como quitamos "Grupo", ahora la columna 2 en adelante son las notas */
+  th:nth-child(n+2){width:52px;text-align:center;}
+  td:nth-child(n+2){text-align:center;}
+  </style></head><body>
+  <h1>Notas Totales — Todas las Evaluaciones</h1><h2>Generado el ${stamp}</h2>
+  ${sections}<script>window.onload=()=>{window.print();}<\/script></body></html>`;
+
+  const fname=`Consolidado_NotasTotales_${stamp}`.replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ _–-]/g,'_');
+  triggerDownload(html,fname+'.html');
+  closeConsolidadoModal();
+}
+
+function triggerDownload(html, filename){
+  const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download=filename;a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+// ── AVATAR ────────────────────────────────────────────────────────────────────
+function openAvatarModal(){
+  const overlay=document.getElementById('avatar-modal-overlay');
+  if(!overlay)return;
+  // Reset state
+  overlay._pendingDataUrl=null;
+  const fi=document.getElementById('avatar-file-input');
+  if(fi)fi.value='';
+  // Pre-fill URL
+  const urlInp=document.getElementById('avatar-url-input');
+  if(urlInp)urlInp.value=state.avatarUrl||'';
+  // Preview
+  const src=state.avatarUrl||state.avatarDataUrl||null;
+  const prev=document.getElementById('avatar-preview-box');
+  const prevImg=document.getElementById('avatar-preview-img');
+  if(src&&prev&&prevImg){prevImg.src=src;prev.style.display='block';}
+  else if(prev){prev.style.display='none';}
+  const rmBtn=document.getElementById('avatar-remove-btn');
+  if(rmBtn)rmBtn.style.display=src?'inline-block':'none';
+  overlay.classList.add('show');
+}
+function closeAvatarModal(){
+  const overlay=document.getElementById('avatar-modal-overlay');
+  if(overlay){overlay.classList.remove('show');overlay._pendingDataUrl=null;}
+  const dz=document.getElementById('avatar-drop-zone');
+  if(dz)dz.classList.remove('drag-over');
+}
+function applyAvatarFromModal(){
+  const overlay=document.getElementById('avatar-modal-overlay');
+  const url=(document.getElementById('avatar-url-input').value||'').trim();
+  if(url){
+    state.avatarUrl=url;
+    state.avatarDataUrl=null;
+  } else if(overlay&&overlay._pendingDataUrl){
+    state.avatarDataUrl=overlay._pendingDataUrl;
+    state.avatarUrl=null;
+  }
+  applyAvatar();
+  closeAvatarModal();
+}
+function removeAvatar(){
+  state.avatarUrl=null;
+  state.avatarDataUrl=null;
+  applyAvatar();
+}
+function applyAvatar(){
+  const circle=document.getElementById('avatar-circle');
+  if(!circle)return;
+  const placeholder=document.getElementById('avatar-placeholder');
+  const existing=circle.querySelector('img');
+  if(existing)existing.remove();
+  const src=state.avatarUrl||state.avatarDataUrl||null;
+  if(src){
+    if(placeholder)placeholder.style.display='none';
+    const img=document.createElement('img');
+    img.src=src;
+    img.onerror=()=>{img.remove();if(placeholder)placeholder.style.display='';};
+    circle.insertBefore(img,circle.firstChild);
+  } else {
+    if(placeholder)placeholder.style.display='';
+  }
+}
+// Bind avatar modal events after DOM ready
+document.addEventListener('DOMContentLoaded',function(){
+  const overlay=document.getElementById('avatar-modal-overlay');
+  const dz=document.getElementById('avatar-drop-zone');
+  const fi=document.getElementById('avatar-file-input');
+  const urlInp=document.getElementById('avatar-url-input');
+  if(overlay) overlay.addEventListener('click',e=>{if(e.target===overlay)closeAvatarModal();});
+  if(fi) fi.addEventListener('change',e=>{
+    const file=e.target.files[0];if(!file)return;
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      const prevImg=document.getElementById('avatar-preview-img');
+      const prevBox=document.getElementById('avatar-preview-box');
+      if(prevImg)prevImg.src=ev.target.result;
+      if(prevBox)prevBox.style.display='block';
+      overlay._pendingDataUrl=ev.target.result;
+      if(urlInp)urlInp.value='';
+    };
+    reader.readAsDataURL(file);
+  });
+  if(urlInp) urlInp.addEventListener('input',()=>{
+    const url=urlInp.value.trim();
+    if(url){
+      const prevImg=document.getElementById('avatar-preview-img');
+      const prevBox=document.getElementById('avatar-preview-box');
+      if(prevImg)prevImg.src=url;
+      if(prevBox)prevBox.style.display='block';
+      if(overlay)overlay._pendingDataUrl=null;
+    }
+  });
+  if(dz){
+    // Click on drop zone text triggers file input
+    dz.addEventListener('click',e=>{ if(e.target!==fi && fi) fi.click(); });
+    dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('drag-over');});
+    dz.addEventListener('dragleave',()=>dz.classList.remove('drag-over'));
+    dz.addEventListener('drop',e=>{
+      e.preventDefault();dz.classList.remove('drag-over');
+      const file=e.dataTransfer.files[0];
+      if(file&&file.type.startsWith('image/')){
+        const reader=new FileReader();
+        reader.onload=ev=>{
+          const prevImg=document.getElementById('avatar-preview-img');
+          const prevBox=document.getElementById('avatar-preview-box');
+          if(prevImg)prevImg.src=ev.target.result;
+          if(prevBox)prevBox.style.display='block';
+          if(overlay)overlay._pendingDataUrl=ev.target.result;
+          if(urlInp)urlInp.value='';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+});
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+renderSidebar();
+showNoCourse();
+applyAvatar();
+
+// Auto-seleccionar el primer curso solo si existe alguno guardado en el estado
+if(state.courses.length && state.courses[0].sub && state.courses[0].sub.length){
+  selectCourse(0,0);
+  renderCourseView();
+}
+
+// ── PASSWORD PROTECT SAVE HTML ─────────────────────────────────────────────────
+const SAVE_PASSWORD = 'george';
+function saveHTML(){
+  const modal=document.getElementById('password-modal-overlay');
+  if(!modal){ doSaveHTML(); return; } // fallback if modal missing
+  document.getElementById('password-input').value='';
+  document.getElementById('password-error').textContent='';
+  modal.classList.add('show');
+  setTimeout(()=>document.getElementById('password-input').focus(),50);
+}
+function closePasswordModal(){
+  const m=document.getElementById('password-modal-overlay');
+  if(m) m.classList.remove('show');
+}
+function confirmPassword(){
+  const val=document.getElementById('password-input').value;
+  if(val!==SAVE_PASSWORD){
+    document.getElementById('password-error').textContent='Contraseña incorrecta.';
+    document.getElementById('password-input').value='';
+    document.getElementById('password-input').focus();
+    return;
+  }
+  closePasswordModal();
+  doSaveHTML();
+}
+
+function doSaveHTML(){
+  const stateJSON=JSON.stringify(state);
+  const src=document.documentElement.outerHTML;
+  // Inject state as a script tag right before </head>
+  // This will override the state variable on load via __SAVED_STATE__
+  const injection=`<script>window.__SAVED_STATE__=${stateJSON};<\/script>`;
+  // Replace the state declaration — look for the const/let at the top of our script
+  let saved=src.replace('</head>', injection+'</head>');
+  // Replace the live state object with a loader
+  saved=saved.replace(
+    /let state = (\{[\s\S]*?\}|window\.__SAVED_STATE__ \|\| \{\});\n/,
+    'let state = (window.__SAVED_STATE__ || {});\n'
+  );
+  const fname=(state.activeCourse?.subName||'dashboard_notas').replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ _-]/g,'_');
+  triggerDownload(saved, fname+'.html');
+}
+
+// ── DATABASE ───────────────────────────────────────────────────────────────────
+function openDBModal(){
+  const m=document.getElementById('db-modal-overlay');
+  if(m) m.classList.add('show');
+}
+function closeDBModal(){
+  const m=document.getElementById('db-modal-overlay');
+  if(m) m.classList.remove('show');
+}
+
+function dateTimeStamp(){
+  const n=new Date();
+  const pad=v=>String(v).padStart(2,'0');
+  const months=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  return `${pad(n.getDate())}-${months[n.getMonth()]}-${n.getFullYear()}_${pad(n.getHours())}-${pad(n.getMinutes())}`;
+}
+
+function exportDB(){
+  const payload={ version:1, exportedAt:new Date().toISOString(), state };
+  const json=JSON.stringify(payload, null, 2);
+  const fname=`Evaluaciones_${dateTimeStamp()}.json`;
+  const blob=new Blob([json],{type:'application/json;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download=fname;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  closeDBModal();
+}
+
+function importDB(e){
+  const file=e.target.files[0]; if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const payload=JSON.parse(ev.target.result);
+      const imported=payload.state||payload;
+      if(!imported.courses||!imported.data) throw new Error('Formato inválido');
+      if(!confirm(`¿Cargar "${file.name}"?\nEsto reemplazará todos los datos actuales.`)) return;
+      state.courses=imported.courses;
+      state.data=imported.data;
+      state.avatarDataUrl=imported.avatarDataUrl||null;
+      state.activeCourse=null; state.activeGroup='all';
+      state.criteriaGroup='1'; state.editMode=false; state.syncGroups=false;
+      applyAvatar(); renderSidebar(); showNoCourse(); closeDBModal();
+      alert('✓ Base de datos cargada correctamente.');
+    } catch(err){ alert('Error al importar: '+err.message); }
+  };
+  reader.readAsText(file);
+  e.target.value='';
+}
+
+// ── GITHUB SYNC ───────────────────────────────────────────────────────────────
+const GH_DEFAULTS = { repo:'egeostyle/notas', filepath:'index.html' };
+
+// Funciones criptográficas para cifrar/descifrar el Token
+async function getCipherKey(password) {
+  const enc = new TextEncoder();
+  const keyMaterial = await crypto.subtle.importKey("raw", enc.encode(password), {name: "PBKDF2"}, false, ["deriveKey"]);
+  const salt = enc.encode("egeostyle-salt-2024");
+  return await crypto.subtle.deriveKey(
+    {name: "PBKDF2", salt: salt, iterations: 100000, hash: "SHA-256"},
+    keyMaterial, {name: "AES-GCM", length: 256}, false, ["encrypt", "decrypt"]
+  );
+}
+
+async function encryptToken(token, password) {
+  const key = await getCipherKey(password);
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const ciphertext = await crypto.subtle.encrypt({name: "AES-GCM", iv: iv}, key, new TextEncoder().encode(token));
+  const ivHex = Array.from(iv).map(b => b.toString(16).padStart(2, '0')).join('');
+  const ctHex = Array.from(new Uint8Array(ciphertext)).map(b => b.toString(16).padStart(2, '0')).join('');
+  return ivHex + ":" + ctHex;
+}
+
+async function decryptToken(encryptedString, password) {
+  try {
+    const [ivHex, ctHex] = encryptedString.split(':');
+    const iv = new Uint8Array(ivHex.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+    const ct = new Uint8Array(ctHex.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+    const key = await getCipherKey(password);
+    const decrypted = await crypto.subtle.decrypt({name: "AES-GCM", iv: iv}, key, ct);
+    return new TextDecoder().decode(decrypted);
+  } catch (e) { return null; }
+}
+
+function openGithubModal(){
+  const saved = JSON.parse(localStorage.getItem('gh_config')||'{}');
+  document.getElementById('gh-repo').value = saved.repo || GH_DEFAULTS.repo;
+  document.getElementById('gh-filepath').value = saved.filepath || GH_DEFAULTS.filepath;
+  document.getElementById('gh-password').value = '';
+  
+  if (state.encryptedGhToken) {
+    document.getElementById('gh-token-container').style.display = 'none';
+    document.getElementById('gh-token').value = 'ENCRYPTED'; 
+  } else {
+    document.getElementById('gh-token-container').style.display = 'block';
+    document.getElementById('gh-token').value = '';
+  }
+
+  ghSetStatus('','');
+  document.getElementById('github-modal-overlay').classList.add('show');
+}
+
+function closeGithubModal(){ document.getElementById('github-modal-overlay').classList.remove('show'); }
+
+function ghForgetToken(){
+  delete state.encryptedGhToken;
+  localStorage.removeItem('gh_config');
+  document.getElementById('gh-token-container').style.display = 'block';
+  document.getElementById('gh-token').value = '';
+  ghSetStatus('Token eliminado. Ingresa uno nuevo para guardar.', 'info');
+}
+
+function ghSetStatus(msg, type){
+  const el=document.getElementById('gh-status');
+  if(!msg){ el.style.display='none'; return; }
+  el.style.display='block';
+  el.style.background = type==='ok'?'#e6f4ea': type==='error'?'#fde8e8': '#f0f4ff';
+  el.style.color      = type==='ok'?'#1a7a1a': type==='error'?'#c00'   : '#445';
+  el.textContent=msg;
+}
+
+async function ghGetFileSHA(headers, user, repo, path){
+  const r = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${path}`,{headers});
+  if(r.status===404) return null;
+  if(!r.ok) throw new Error(`Error al obtener SHA: ${r.status}`);
+  const d = await r.json();
+  return d.sha || null;
+}
+
+async function ghPutFile(headers, user, repo, path, base64Content, message, sha){
+  for(const branch of ['main','master']){
+    const body = { message, content: base64Content, branch };
+    if(sha) body.sha = sha;
+    const r = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${path}`,{
+      method:'PUT', headers:{...headers,'Content-Type':'application/json'},
+      body: JSON.stringify(body)
+    });
+    if(r.ok) return r;
+    if(r.status===422 && branch==='main') continue;
+    const e=await r.json();
+    throw new Error(e.message||`HTTP ${r.status}`);
+  }
+}
+
+// Codificador Base64 Seguro
+function safeUTF8ToBase64(str) {
+  const bytes = new TextEncoder().encode(str);
+  let binary = '';
+  for (let i = 0; i < bytes.byteLength; i += 10000) {
+    binary += String.fromCharCode.apply(null, bytes.subarray(i, i + 10000));
+  }
+  return btoa(binary);
+}
+
+async function ghSync(){
+  try {
+    const repoFull = document.getElementById('gh-repo').value.trim();
+    const filepath = document.getElementById('gh-filepath').value.trim();
+    let token = document.getElementById('gh-token').value.trim();
+    const password = document.getElementById('gh-password').value;
+
+    if(!repoFull||!repoFull.includes('/')||!filepath){
+      ghSetStatus('Completa el repositorio y archivo.','error'); return;
+    }
+    if(!password){
+      ghSetStatus('Debes ingresar la contraseña de sincronización.','error'); return;
+    }
+
+    // 1. Limpieza inicial: Eliminamos cualquier carácter que no sea texto estándar ASCII
+    token = token.replace(/[^\x20-\x7E]/g, '');
+
+    if (state.encryptedGhToken && token === 'ENCRYPTED') {
+      token = await decryptToken(state.encryptedGhToken, password);
+      if(!token) { ghSetStatus('Contraseña incorrecta. No se pudo descifrar el token.', 'error'); return; }
+      
+      // 2. Limpieza post-descifrado por si se guardó sucio anteriormente
+      token = token.replace(/[^\x20-\x7E]/g, '');
+    } else {
+      if(!token || token === 'ENCRYPTED') { ghSetStatus('Ingresa un token de GitHub válido.', 'error'); return; }
+      state.encryptedGhToken = await encryptToken(token, password);
+    }
+
+    localStorage.setItem('gh_config', JSON.stringify({repo:repoFull, filepath}));
+
+    const btn=document.getElementById('gh-sync-btn');
+    btn.disabled=true;
+    document.getElementById('btn-github').classList.add('syncing');
+    ghSetStatus('Preparando archivo...','info');
+
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28'
+    };
+
+    const stateJSON = JSON.stringify(state);
+    
+    // CLONAMOS EL DOM PARA LIMPIARLO ANTES DE GUARDAR
+    const docClone = document.documentElement.cloneNode(true);
+    
+    const cloneModal = docClone.querySelector('#github-modal-overlay');
+    if (cloneModal) cloneModal.classList.remove('show');
+    const cloneStatus = docClone.querySelector('#gh-status');
+    if (cloneStatus) { cloneStatus.style.display = 'none'; cloneStatus.textContent = ''; }
+    const cloneBtn = docClone.querySelector('#gh-sync-btn');
+    if (cloneBtn) cloneBtn.removeAttribute('disabled');
+    const cloneGhBtn = docClone.querySelector('#btn-github');
+    if (cloneGhBtn) cloneGhBtn.classList.remove('syncing', 'success', 'error');
+
+    const src = docClone.outerHTML;
+    const injection = `<script>window.__SAVED_STATE__=${stateJSON};<\/script>`;
+    let htmlContent = src.replace('</head>', injection+'</head>')
+      .replace(/let state = (\{[\s\S]*?\}|window\.__SAVED_STATE__ \|\| \{\});\n/,
+               'let state = (window.__SAVED_STATE__ || {});\n');
+
+    const stamp = dateTimeStamp();
+    const jsonContent = JSON.stringify({ version:1, exportedAt:new Date().toISOString(), state }, null, 2);
+    const historialPath = `historial/Evaluaciones_${stamp}.json`;
+
+    ghSetStatus('Conectando con GitHub...','info');
+    const [user, repo] = repoFull.split('/');
+    const mainSHA = await ghGetFileSHA(headers, user, repo, filepath);
+
+    ghSetStatus('Subiendo archivo principal...','info');
+    await ghPutFile(headers, user, repo, filepath, safeUTF8ToBase64(htmlContent), `📋 Sync dashboard ${stamp}`, mainSHA);
+
+    ghSetStatus('Guardando respaldo en historial/...','info');
+    await ghPutFile(headers, user, repo, historialPath, safeUTF8ToBase64(jsonContent), `📦 Historial ${stamp}`, null);
+
+    ghSetStatus(`✓ Sincronizado correctamente · ${stamp}`,'ok');
+    document.getElementById('btn-github').classList.remove('syncing');
+    document.getElementById('btn-github').classList.add('success');
+    setTimeout(()=>document.getElementById('btn-github').classList.remove('success'),3000);
+    btn.disabled=false;
+  } catch(err) {
+    console.error(err);
+    ghSetStatus(`Error: ${err.message}`,'error');
+    document.getElementById('btn-github').classList.remove('syncing');
+    document.getElementById('btn-github').classList.add('error');
+    setTimeout(()=>document.getElementById('btn-github').classList.remove('error'),3000);
+    document.getElementById('gh-sync-btn').disabled=false;
+  }
+}
+
+// Defer modal event listeners until DOM is fully parsed
+document.addEventListener('DOMContentLoaded', function(){
+
+  // CALCULADORA DE PROMEDIOS
+  const calcOverlay = document.getElementById('calc-modal-overlay');
+  if(calcOverlay) calcOverlay.addEventListener('click',e=>{ if(e.target===calcOverlay) closeCalcModal(); });
+
+  // AUTO-REPARACIÓN DE DOM CONGELADO (Por si se guardó sucio la vez anterior)
+  const forceGhOverlay = document.getElementById('github-modal-overlay');
+  if (forceGhOverlay) forceGhOverlay.classList.remove('show');
+  const forceGhStatus = document.getElementById('gh-status');
+  if (forceGhStatus) { forceGhStatus.style.display = 'none'; forceGhStatus.textContent = ''; }
+  const forceGhBtn = document.getElementById('gh-sync-btn');
+  if (forceGhBtn) forceGhBtn.removeAttribute('disabled');
+  const forceFloatBtn = document.getElementById('btn-github');
+  if (forceFloatBtn) forceFloatBtn.classList.remove('syncing', 'success', 'error');
+
+  const pwOverlay=document.getElementById('password-modal-overlay');
+  if(pwOverlay){
+    pwOverlay.addEventListener('click',e=>{ if(e.target===pwOverlay) closePasswordModal(); });
+    document.getElementById('password-input').addEventListener('keydown',e=>{
+      if(e.key==='Enter') confirmPassword();
+      if(e.key==='Escape') closePasswordModal();
+    });
+  }
+  const dbOverlay=document.getElementById('db-modal-overlay');
+  if(dbOverlay) dbOverlay.addEventListener('click',e=>{ if(e.target===dbOverlay) closeDBModal(); });
+
+  const ghOverlay=document.getElementById('github-modal-overlay');
+  if(ghOverlay) ghOverlay.addEventListener('click',e=>{ if(e.target===ghOverlay) closeGithubModal(); });
+
+  const saved = JSON.parse(localStorage.getItem('gh_config')||'{}');
+  if(saved.repo) document.getElementById('gh-repo').value=saved.repo;
+});
+</script>
+
+<!-- MODAL CALCULADORA -->
+<div class="modal-overlay" id="calc-modal-overlay">
+  <div class="modal" style="min-width:320px;max-width:380px;padding:24px 20px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px">
+      <h3 style="margin:0; font-size:18px;">Calculadora</h3>
+      <button id="calc-edit-btn" onclick="toggleCalcEditMode()" style="background:none;border:none;cursor:pointer;font-size:20px;color:#aaa;transition:color .2s;" title="Editar configuraciones">⚙</button>
+    </div>
+    <table id="calc-table">
+      <thead>
+        <tr><th>Evaluación</th><th>Porcentaje</th><th>Puntaje</th><th class="calc-del-col" style="display:none;width:30px;border:none"></th></tr>
+      </thead>
+      <tbody id="calc-tbody"></tbody>
+    </table>
+    <button id="calc-add-btn" onclick="addCalcRow()" style="display:none; width:100%; padding:8px; margin-bottom:10px; background:#f4f4f4; border:1.5px dashed #ccc; border-radius:6px; cursor:pointer; font-size:13px; font-weight:600; color:#666; transition:background .2s;">+ Agregar Fila</button>
+    
+    <div class="calc-final-row">
+      <span>Nota final:</span>
+      <span class="calc-note-badge" id="calc-final-score">—</span>
+    </div>
+    
+    <div class="modal-actions" style="margin-top:20px">
+      <button class="btn-cancel" onclick="closeCalcModal()" style="width:100%">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONTRASEÑA -->
+<div class="modal-overlay" id="password-modal-overlay">
+  <div class="modal" style="max-width:360px">
+    <h3 style="margin-bottom:6px">🔒 Guardar HTML</h3>
+    <p style="font-size:13px;color:#666;margin-bottom:12px">Ingresa la contraseña para continuar.</p>
+    <input id="password-input" type="password" placeholder="Contraseña" style="margin-bottom:8px" />
+    <div id="password-error" style="font-size:12px;color:#c00;min-height:16px;margin-bottom:8px"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closePasswordModal()">Cancelar</button>
+      <button class="btn-confirm" onclick="confirmPassword()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL BASE DE DATOS -->
+<div class="modal-overlay" id="db-modal-overlay">
+  <div class="modal" style="max-width:400px">
+    <h3 style="margin-bottom:6px">🗄 Base de datos</h3>
+    <p style="font-size:13px;color:#666;margin-bottom:20px">Exporta o importa todos los datos del dashboard.</p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:18px">
+      <button onclick="exportDB()" style="background:#333;color:#fff;border:none;border-radius:8px;padding:12px 16px;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:10px;text-align:left">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2a1 1 0 0 1 1 1v10.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V3a1 1 0 0 1 1-1zM5 17a1 1 0 0 1 1 1v2h12v-2a1 1 0 1 1 2 0v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2a1 1 0 0 1 1-1z"/></svg>
+        <div><div style="font-weight:700">Descargar base de datos</div><div style="font-size:12px;opacity:.7">Exporta toda la información como archivo JSON</div></div>
+      </button>
+      <button onclick="document.getElementById('import-db-input').click()" style="background:#eee;color:#333;border:none;border-radius:8px;padding:12px 16px;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:10px;text-align:left">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 16a1 1 0 0 1-1-1V4.414l-2.293 2.293a1 1 0 0 1-1.414-1.414l4-4a1 1 0 0 1 1.414 0l4 4a1 1 0 0 1-1.414 1.414L13 4.414V15a1 1 0 0 1-1 1zM5 17a1 1 0 0 1 1 1v2h12v-2a1 1 0 1 1 2 0v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2a1 1 0 0 1 1-1z"/></svg>
+        <div><div style="font-weight:700">Cargar base de datos</div><div style="font-size:12px;opacity:.7">Importa un archivo JSON exportado previamente</div></div>
+      </button>
+      <input type="file" id="import-db-input" accept=".json" style="display:none" onchange="importDB(event)" />
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeDBModal()">Cerrar</button>
+    </div>
+  </div>
+</div>
+<!-- MODAL GITHUB -->
+<div class="modal-overlay" id="github-modal-overlay">
+  <div class="modal" style="max-width:460px">
+    <h3 style="margin-bottom:4px">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style="vertical-align:middle;margin-right:6px"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+      Sincronizar con GitHub
+    </h3>
+    <p style="font-size:12px;color:#888;margin-bottom:16px">Cifra tu token con una contraseña para que se guarde seguro en tu archivo y puedas sincronizar desde cualquier PC.</p>
+
+    <div style="display:grid;gap:10px;margin-bottom:14px">
+      <div id="gh-repo-container" style="display:flex;gap:10px">
+        <div style="flex:1">
+          <label style="font-size:12px;font-weight:600;color:#555;display:block;margin-bottom:4px">Repositorio</label>
+          <input id="gh-repo" type="text" placeholder="egeostyle/notas" style="width:100%;border:1.5px solid #ddd;border-radius:7px;padding:7px 10px;font-size:13px;outline:none" />
+        </div>
+        <div style="flex:1">
+          <label style="font-size:12px;font-weight:600;color:#555;display:block;margin-bottom:4px">Archivo en el repo</label>
+          <input id="gh-filepath" type="text" value="index.html" style="width:100%;border:1.5px solid #ddd;border-radius:7px;padding:7px 10px;font-size:13px;outline:none" />
+        </div>
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:600;color:#555;display:block;margin-bottom:4px">Contraseña de Sincronización</label>
+        <input id="gh-password" type="password" placeholder="Ej: 021991" style="width:100%;border:1.5px solid #ddd;border-radius:7px;padding:7px 10px;font-size:13px;outline:none" />
+      </div>
+      <div id="gh-token-container">
+        <label style="font-size:12px;font-weight:600;color:#555;display:block;margin-bottom:4px">Token de GitHub (Solo la primera vez)</label>
+        <input id="gh-token" type="password" placeholder="ghp_..." style="width:100%;border:1.5px solid #ddd;border-radius:7px;padding:7px 10px;font-size:13px;outline:none" />
+      </div>
+    </div>
+
+    <div id="gh-status" style="font-size:13px;min-height:20px;margin-bottom:12px;padding:8px 10px;border-radius:6px;display:none"></div>
+
+    <div style="display:flex;gap:8px;justify-content:space-between;align-items:center">
+      <button onclick="ghForgetToken()" style="background:none;border:none;color:#aaa;font-size:12px;cursor:pointer;padding:0">Borrar Token Guardado</button>
+      <div style="display:flex;gap:8px">
+        <button class="btn-cancel" onclick="closeGithubModal()">Cancelar</button>
+        <button class="btn-confirm" onclick="ghSync()" id="gh-sync-btn">Sincronizar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- AVATAR MODAL (real DOM element) -->
+<div id="avatar-modal-overlay">
+  <div id="avatar-modal-box">
+    <h3>Foto de perfil</h3>
+    <div id="avatar-drop-zone">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5" width="36" height="36"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      <span>Arrastra una imagen aqui o <strong>haz clic para seleccionar</strong></span>
+      <input type="file" id="avatar-file-input" accept="image/*" />
+    </div>
+    <div id="avatar-preview-box">
+      <img id="avatar-preview-img" src="" alt="Preview" />
+      <p style="font-size:12px;color:#888;margin-top:6px">Vista previa</p>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+      <div style="flex:1;height:1px;background:#eee"></div>
+      <span style="font-size:12px;color:#bbb">o usa una URL</span>
+      <div style="flex:1;height:1px;background:#eee"></div>
+    </div>
+    <input type="text" id="avatar-url-input" placeholder="https://ejemplo.com/foto.jpg" />
+    <p class="avatar-hint">Con URL la imagen no se guarda en el HTML</p>
+    <div class="modal-actions">
+      <button class="btn-confirm" id="avatar-remove-btn" onclick="removeAvatar();closeAvatarModal()" style="background:#c00;margin-right:auto;display:none">Quitar foto</button>
+      <button class="btn-cancel" onclick="closeAvatarModal()">Cancelar</button>
+      <button class="btn-confirm" onclick="applyAvatarFromModal()">Aplicar</button>
+    </div>
+  </div>
+</div>
+
+</body></html>
