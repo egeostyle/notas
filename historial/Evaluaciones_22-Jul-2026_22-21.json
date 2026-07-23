@@ -1,0 +1,2267 @@
+{
+  "version": 1,
+  "exportedAt": "2026-07-23T03:21:46.842Z",
+  "state": {
+    "courses": [
+      {
+        "id": "g_1784754056507",
+        "name": "T. de gráfica digital 1",
+        "expanded": true,
+        "sub": [
+          {
+            "id": "sc_1784754064662",
+            "name": "2026332411"
+          }
+        ]
+      },
+      {
+        "id": "g_1784754982309",
+        "name": "Social Media",
+        "expanded": true,
+        "sub": [
+          {
+            "id": "sc_1784754988825",
+            "name": "2026433103"
+          }
+        ]
+      },
+      {
+        "id": "g_1784756132652",
+        "name": "Diseño de interfaces multimedia 3",
+        "expanded": true,
+        "sub": [
+          {
+            "id": "sc_1784756142907",
+            "name": "2026331395"
+          },
+          {
+            "id": "sc_1784756809769",
+            "name": "2026432767"
+          },
+          {
+            "id": "sc_1784757477588",
+            "name": "2026432785"
+          }
+        ]
+      },
+      {
+        "id": "g_1784757745155",
+        "name": "Diseño de interfaces multimedia 2",
+        "expanded": true,
+        "sub": [
+          {
+            "id": "sc_1784757755141",
+            "name": "2026434058"
+          }
+        ]
+      },
+      {
+        "id": "g_1784758275420",
+        "name": "EFSRT 3",
+        "expanded": true,
+        "sub": [
+          {
+            "id": "sc_1784758286475",
+            "name": "2026432664"
+          }
+        ]
+      },
+      {
+        "id": "g_1784758430411",
+        "name": "EFSRT 4",
+        "expanded": true,
+        "sub": [
+          {
+            "id": "sc_1784758434816",
+            "name": "2026432706 2026433730"
+          },
+          {
+            "id": "sc_1784758598187",
+            "name": "2026432996 2026433026 2026433115"
+          }
+        ]
+      }
+    ],
+    "data": {
+      "sc_1784754064662": {
+        "students": [
+          {
+            "id": "st_17847540801770.08500758754970716",
+            "name": "ABARCA FLORES, SHARELLA ESTRELLA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847540666670.9846376937772205": 5
+            }
+          },
+          {
+            "id": "st_17847540801770.4847488428593525",
+            "name": "CHOQUEHUANCA BARBOZA, CRISTOPHER",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847540666670.9846376937772205": 6
+            }
+          },
+          {
+            "id": "st_17847540801770.22677647352733266",
+            "name": "ESCALANTE PINEDO, PEGGI",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847540666670.9846376937772205": 7
+            }
+          },
+          {
+            "id": "st_17847540801770.7682458865869652",
+            "name": "GONZALES RIVERA, ASHLEY KAMILA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847540666670.9846376937772205": 2
+            }
+          },
+          {
+            "id": "st_17847540801770.6044830782189079",
+            "name": "JIMENEZ CORDOVA, BRYAN SMIT",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847540801770.05270673504135159",
+            "name": "LLUEN QUINTON, CLARA VIVIANA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847540666670.9846376937772205": 8
+            }
+          },
+          {
+            "id": "st_17847540801770.7374142307930988",
+            "name": "MEJIA ANCCO, GABRIELA NICOLE EMILY",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847540666670.9846376937772205": 3
+            }
+          },
+          {
+            "id": "st_17847540801770.017901601131740996",
+            "name": "OSORIO VILLAVICENCIO, ANDRE AARON",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847540666670.9846376937772205": 1
+            }
+          },
+          {
+            "id": "st_17847540801770.18056398128377682",
+            "name": "QUISPE TAIRO, JOEL ANTHONY",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847540801770.6484474051079402",
+            "name": "REVILLA JAVE, PATRICK ALEXIS",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847540666670.9846376937772205": 4
+            }
+          },
+          {
+            "id": "st_17847540801770.9318473171153645",
+            "name": "TRUJILLO ORBEGOZO, MAIRA ALEJANDRA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847540801770.9394279504053787",
+            "name": "VILLEGAS JARA, ARIANA VALERIA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          }
+        ],
+        "evals": [
+          {
+            "id": "ev_17847540666670.9846376937772205",
+            "name": "T1",
+            "criteria": [
+              {
+                "id": "cr_1784754248885",
+                "name": "Bocetos (4)​"
+              },
+              {
+                "id": "cr_1784754257120",
+                "name": "Presentación de Concepto y collage"
+              },
+              {
+                "id": "cr_1784754265315",
+                "name": "Orden de archivo y uso de herramientas​"
+              },
+              {
+                "id": "cr_1784754274444",
+                "name": "Ilustración de personaje e integración de fondo"
+              }
+            ],
+            "groupScores": {
+              "1": {
+                "0": 5,
+                "1": 4,
+                "2": 4,
+                "3": 4,
+                "__final": 17
+              },
+              "2": {
+                "0": 5,
+                "1": 5,
+                "2": 4,
+                "3": 4,
+                "__final": 18
+              },
+              "3": {
+                "0": 5,
+                "1": 5,
+                "2": 5,
+                "3": 5,
+                "__final": 20
+              },
+              "4": {
+                "0": 5,
+                "1": 5,
+                "2": 4,
+                "3": 5,
+                "__final": 19
+              },
+              "5": {
+                "0": 5,
+                "1": 5,
+                "2": 5,
+                "3": 5,
+                "__final": 20
+              },
+              "6": {
+                "0": 4,
+                "1": 4,
+                "2": 3,
+                "3": 3,
+                "__final": 14
+              },
+              "7": {
+                "0": 5,
+                "1": 5,
+                "2": 5,
+                "3": 3,
+                "__final": 18
+              },
+              "8": {
+                "0": 5,
+                "1": 5,
+                "2": 5,
+                "3": 5,
+                "__final": 20
+              }
+            }
+          }
+        ],
+        "activeEvalIdx": 0,
+        "syncGroups": false,
+        "delegateId": "st_17847540801770.4847488428593525"
+      },
+      "sc_1784754988825": {
+        "students": [
+          {
+            "id": "st_17847550997130.9039623608801868",
+            "name": "AGUILAR VASQUEZ, CESAR AGUSTO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847550997130.9931877013715112",
+            "name": "ANDRADE ROMERO, FLAVIO SAID",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847550997130.20060986610375697",
+            "name": "ARMAS ALBARRAN, CRISTINA CELESTE",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847549911730.8979595910790383": 4
+            }
+          },
+          {
+            "id": "st_17847550997130.4970182896763323",
+            "name": "AVALOS CASALLO, MELANY VALENTINA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847549911730.8979595910790383": 2
+            }
+          },
+          {
+            "id": "st_17847550997130.7627448826175832",
+            "name": "BECERRA INUMA, YEIKY YADHIRA DE LOS ANGELES",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847549911730.8979595910790383": 1
+            }
+          },
+          {
+            "id": "st_17847550997130.6332485585802266",
+            "name": "BUSTAMANTE PASTOR, JEREMY GABRIEL",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847549911730.8979595910790383": 3
+            }
+          },
+          {
+            "id": "st_17847550997130.7951215431355974",
+            "name": "CASTRO GIL, MARIA JULIA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847549911730.8979595910790383": 5
+            }
+          },
+          {
+            "id": "st_17847550997130.24068822585692828",
+            "name": "CHAMPI PACHERRES, FABRIZIO ALONSO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847550997130.3837599853190141",
+            "name": "CHAVEZ GAMARRA, NANCY CAROLINA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847549911730.8979595910790383": 6
+            }
+          },
+          {
+            "id": "st_17847550997130.5072119508446161",
+            "name": "CRUZ RONCAL, JAVIER ALEJANDRO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847549911730.8979595910790383": 5
+            }
+          },
+          {
+            "id": "st_17847550997130.069665826214098",
+            "name": "CUEVAS PUITIZA, JEAN POOL FRANCILES",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847549911730.8979595910790383": 5
+            }
+          },
+          {
+            "id": "st_17847550997130.2245692671524182",
+            "name": "FLORES CUZCO, DAYANA GRESSLY",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847549911730.8979595910790383": 3
+            }
+          },
+          {
+            "id": "st_17847550997130.3364914515331059",
+            "name": "GUTIERREZ RODRIGUEZ, JANIZ LIZET",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847549911730.8979595910790383": 1
+            }
+          },
+          {
+            "id": "st_17847550997130.8111046166095456",
+            "name": "JUAREZ ASENCIO, KEVIN ROGELIO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847550997130.09051776782737475",
+            "name": "MAGALLANES RODRIGUEZ, CRISTHIAN EDUARDO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847549911730.8979595910790383": 5
+            }
+          },
+          {
+            "id": "st_17847550997130.6611813129891668",
+            "name": "MANTILLA ALVARADO, FERNANDA LIZBETH",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847549911730.8979595910790383": 1
+            }
+          },
+          {
+            "id": "st_17847550997130.6420021375468143",
+            "name": "NUÑEZ CHAVEZ, ALEJANDRA ZUAMI",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847550997130.8167897796639298",
+            "name": "OLAYA LOPEZ, HILARY NICOLL",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847549911730.8979595910790383": 4
+            }
+          },
+          {
+            "id": "st_17847550997130.4008165758119412",
+            "name": "PESANTES CARRANZA, ADRIANO DEL PIERO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847550997130.9918889745098362",
+            "name": "PLASENCIA TELLO, ADRIAN FABRICIO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847549911730.8979595910790383": 6
+            }
+          },
+          {
+            "id": "st_17847550997130.4442145197031615",
+            "name": "RAVELLO RAMOS, JERRY MATEO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847549911730.8979595910790383": 1
+            }
+          },
+          {
+            "id": "st_17847550997130.7401018667349697",
+            "name": "RIMARI VELASQUEZ, DANIEL ANTONIO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847549911730.8979595910790383": 6
+            }
+          },
+          {
+            "id": "st_17847550997130.8028023438289491",
+            "name": "ROMERO ROJAS, KIARA SILVIA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847549911730.8979595910790383": 6
+            }
+          },
+          {
+            "id": "st_17847550997130.5013801772922022",
+            "name": "SANCHEZ AGUIRRE, DANILO SEBASTIAN",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847549911730.8979595910790383": 3
+            }
+          },
+          {
+            "id": "st_17847550997130.5345966381992744",
+            "name": "TARRILLO PRADO, EMILY NAHOMI",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847549911730.8979595910790383": 5
+            }
+          },
+          {
+            "id": "st_17847550997130.3214735838138524",
+            "name": "VASQUEZ GONZALES, LUIS ANGEL",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847549911730.8979595910790383": 2
+            }
+          },
+          {
+            "id": "st_17847550997130.11721437265353962",
+            "name": "ANDRADE DE LA CRUZ, MAICOL AARON",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847549911730.8979595910790383": 1
+            }
+          },
+          {
+            "id": "st_17847550997130.668714577212967",
+            "name": "LOZANO SIGÜENZA, CIELO ESTRELLA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847549911730.8979595910790383": 3
+            }
+          }
+        ],
+        "evals": [
+          {
+            "id": "ev_17847549911730.8979595910790383",
+            "name": "T1",
+            "criteria": [
+              {
+                "id": "cr_1784755167075",
+                "name": "Analisis de campañas e insight​"
+              },
+              {
+                "id": "cr_1784755174095",
+                "name": "Análisis de redes"
+              },
+              {
+                "id": "cr_1784755181431",
+                "name": "Análisis de comportamiento de usuario"
+              },
+              {
+                "id": "cr_1784755188423",
+                "name": "Sustento para mejorar​ engagement​"
+              }
+            ],
+            "groupScores": {
+              "1": {
+                "0": 5,
+                "1": 5,
+                "2": 5,
+                "3": 3,
+                "__final": 18
+              },
+              "2": {
+                "0": 5,
+                "1": 5,
+                "2": 5,
+                "3": 5,
+                "__final": 20
+              },
+              "3": {
+                "0": 5,
+                "1": 5,
+                "2": 4,
+                "3": 2,
+                "__final": 16
+              },
+              "4": {
+                "0": 5,
+                "1": 5,
+                "2": 4,
+                "3": 5,
+                "__final": 19
+              },
+              "5": {
+                "0": 5,
+                "1": 5,
+                "2": 4,
+                "3": 2,
+                "__final": 16
+              },
+              "6": {
+                "0": 5,
+                "1": 5,
+                "2": 5,
+                "3": 3,
+                "__final": 18
+              }
+            }
+          }
+        ],
+        "activeEvalIdx": 0,
+        "syncGroups": false,
+        "delegateId": "st_17847550997130.4442145197031615"
+      },
+      "sc_1784756142907": {
+        "students": [
+          {
+            "id": "st_17847562314260.16520608261038772",
+            "name": "CHECA MARCOS, CRISTHIAN ALEXIS",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847561804250.7879881132011094": 3
+            }
+          },
+          {
+            "id": "st_17847562314260.7361561274016566",
+            "name": "MEDINA HUILCA, JEMINA ESMERALDA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847561804250.7879881132011094": 3
+            }
+          },
+          {
+            "id": "st_17847562314260.5361209845846163",
+            "name": "MITACC YUCRA, ABRAHAM ALEXANDER",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847561804250.7879881132011094": 3
+            }
+          },
+          {
+            "id": "st_17847562314260.4954022473011156",
+            "name": "POVIS ESCOBAR, YAYOI MYRIAM",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847561804250.7879881132011094": 2
+            }
+          },
+          {
+            "id": "st_17847562314260.1145384173794024",
+            "name": "RAMOS BENDEZU, FIORELLA ARIANA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847561804250.7879881132011094": 2
+            }
+          },
+          {
+            "id": "st_17847562314260.37406348397842104",
+            "name": "ROJAS DIAZ, CAROLINA DE LOS ANGELES",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847561804250.7879881132011094": 1
+            }
+          },
+          {
+            "id": "st_17847562314260.1428828990752815",
+            "name": "SAMAME VILLAVICENCIO, DANIEL ANTONIO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847561804250.7879881132011094": 1
+            }
+          },
+          {
+            "id": "st_17847562314260.8360763875840803",
+            "name": "SHAPIAMA APEÑA, ARIANA LUCIA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847561804250.7879881132011094": 1
+            }
+          },
+          {
+            "id": "st_17847562314260.5783262593154973",
+            "name": "ALARCON ESTRADA, ZECIAH MARUBENY",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847561804250.7879881132011094": 2
+            }
+          },
+          {
+            "id": "st_17847562314260.8245373332839384",
+            "name": "MAYTA SALHUA, ALEJANDRA FIORELLA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847561804250.7879881132011094": 3
+            }
+          }
+        ],
+        "evals": [
+          {
+            "id": "ev_17847561804250.7879881132011094",
+            "name": "T1",
+            "criteria": [
+              {
+                "id": "cr_1784756488207",
+                "name": "mapa de sitio"
+              },
+              {
+                "id": "cr_1784756500821",
+                "name": "objetivos de marketing"
+              },
+              {
+                "id": "cr_1784756506991",
+                "name": "video wordpress"
+              }
+            ],
+            "groupScores": {
+              "1": {
+                "0": 4,
+                "1": 5,
+                "2": 8,
+                "__final": 17
+              },
+              "2": {
+                "0": 4,
+                "1": 5,
+                "2": 8,
+                "__final": 17
+              },
+              "3": {
+                "0": 4,
+                "1": 4,
+                "2": 8,
+                "__final": 16
+              }
+            }
+          }
+        ],
+        "activeEvalIdx": 0,
+        "syncGroups": false,
+        "delegateId": "st_17847562314260.7361561274016566"
+      },
+      "sc_1784756809769": {
+        "students": [
+          {
+            "id": "st_17847568765800.30171144172315434",
+            "name": "ALVARADO VILLAR, DAFNE DAYANA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 5
+            }
+          },
+          {
+            "id": "st_17847568765800.8359876175327806",
+            "name": "ATOCCSA CHOTON, GIANELLA LUCIA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 5
+            }
+          },
+          {
+            "id": "st_17847568765800.5519120979659722",
+            "name": "BARDALES VILLAVICENCIO, YULY MIRTHA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 3
+            }
+          },
+          {
+            "id": "st_17847568765800.3839997873484199",
+            "name": "BERNACHEA QUISPE, EVELYN DANIELA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 6
+            }
+          },
+          {
+            "id": "st_17847568765800.5956987908282116",
+            "name": "CARRILLO ROLDAN, MARIA FERNANDA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 4
+            }
+          },
+          {
+            "id": "st_17847568765800.8985482613336904",
+            "name": "CORDOVA POMA, FIORELLA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847568765800.4261344292137583",
+            "name": "DÍAZ CHACÓN, DIEGO CÉSAR",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 5
+            }
+          },
+          {
+            "id": "st_17847568765800.14536456380706564",
+            "name": "FARFAN CORDOVA, EDUARDO JOSE",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 1
+            }
+          },
+          {
+            "id": "st_17847568765800.38075764027464665",
+            "name": "GARRIDO GARCIA, JESSICA JASMINE",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 2
+            }
+          },
+          {
+            "id": "st_17847568765800.5802123634120943",
+            "name": "ITO CALIXTO, BLANCA NATSUMI",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 6
+            }
+          },
+          {
+            "id": "st_17847568765800.7881823610039705",
+            "name": "NAVARRO GRADOS, ARTURO JAVIER",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 1
+            }
+          },
+          {
+            "id": "st_17847568765800.7735753235588251",
+            "name": "PARI CRUZ, KYARA MARIA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 5
+            }
+          },
+          {
+            "id": "st_17847568765800.8764740562737163",
+            "name": "PARIASCA VICUÑA, ANGIE MIRELLA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 1
+            }
+          },
+          {
+            "id": "st_17847568765800.7032191330507865",
+            "name": "QUEVEDO AGUERO, ALLISÓN JAMILEY",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 6
+            }
+          },
+          {
+            "id": "st_17847568765800.04838891941220247",
+            "name": "QUISPE PRECIADO, AYMAR ARIANA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 1
+            }
+          },
+          {
+            "id": "st_17847568765800.7633796524122192",
+            "name": "RAMIREZ PALOMINO, ASHLEY BRIGITTE",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 3
+            }
+          },
+          {
+            "id": "st_17847568765800.5160734782132488",
+            "name": "RODRIGUEZ JIMENEZ, FABIANA JOSELYN",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 2
+            }
+          },
+          {
+            "id": "st_17847568765800.062407725576123285",
+            "name": "SAAVEDRA CACERES, JAIR SIGFRIDO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 5
+            }
+          },
+          {
+            "id": "st_17847568765800.4385849877618212",
+            "name": "SOSA SANCHEZ, SARA VICTORIA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 6
+            }
+          },
+          {
+            "id": "st_17847568765800.8031934423315207",
+            "name": "SOTELO RIVERA, ALEXANDER PAUL",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 1
+            }
+          },
+          {
+            "id": "st_17847568765800.8393701992564604",
+            "name": "TOLENTINO RUIZ, JURGEN KYLE",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 5
+            }
+          },
+          {
+            "id": "st_17847568765800.10126940081097513",
+            "name": "ZAVALETA ZAMORA, YANNELY ASTRID",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 2
+            }
+          },
+          {
+            "id": "st_17847568765800.8649483708966827",
+            "name": "BARTOLOME MANSILLA, LUZ ALISON",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 3
+            }
+          },
+          {
+            "id": "st_17847568765800.9584017622995196",
+            "name": "PINEDA LAZARO DE VELASQUE, GERALDINE LORETA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 3
+            }
+          },
+          {
+            "id": "st_17847568765800.4310320106167782",
+            "name": "QUEVEDO DAVILA, TIFANNY AYUMÍ",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 2
+            }
+          },
+          {
+            "id": "st_17847568765800.03805565287413348",
+            "name": "QUISPE COVEÑAS, CECIA ALMENDRA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847568154640.5321834001009919": 6
+            }
+          }
+        ],
+        "evals": [
+          {
+            "id": "ev_17847568154640.5321834001009919",
+            "name": "T1",
+            "criteria": [
+              {
+                "id": "cr_1784756823026",
+                "name": "mapa de sitio"
+              },
+              {
+                "id": "cr_1784756829235",
+                "name": "objetivos de marketing"
+              },
+              {
+                "id": "cr_1784756836838",
+                "name": "video wordpress"
+              }
+            ],
+            "groupScores": {
+              "1": {
+                "0": 3,
+                "1": 6,
+                "2": 8,
+                "__final": 17
+              },
+              "2": {
+                "0": 4,
+                "1": 6,
+                "2": 8,
+                "__final": 18
+              },
+              "3": {
+                "0": 6,
+                "1": 6,
+                "2": 7,
+                "__final": 19
+              },
+              "4": {
+                "0": 6,
+                "1": 5,
+                "2": 4,
+                "__final": 15
+              },
+              "5": {
+                "0": 6,
+                "1": 5,
+                "2": 8,
+                "__final": 19
+              },
+              "6": {
+                "0": 6,
+                "1": 6,
+                "2": 8,
+                "__final": 20
+              }
+            }
+          }
+        ],
+        "activeEvalIdx": 0,
+        "syncGroups": false,
+        "delegateId": "st_17847568765800.4261344292137583"
+      },
+      "sc_1784757477588": {
+        "students": [
+          {
+            "id": "st_17847575977290.9706067800729786",
+            "name": "BURGA PASTOR, SERGIO LEANDRO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847574791610.05453993345207364": 3
+            }
+          },
+          {
+            "id": "st_17847575977290.797903839388728",
+            "name": "CULQUE GAMBOA, CARLOS FERNANDO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847574791610.05453993345207364": 2
+            }
+          },
+          {
+            "id": "st_17847575977290.8716137255025039",
+            "name": "ESPINOLA GARAY, ANDREA CELESTE",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847574791610.05453993345207364": 3
+            }
+          },
+          {
+            "id": "st_17847575977290.5405785527363424",
+            "name": "ESPINOLA GARAY, LUIS FERNANDO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847574791610.05453993345207364": 3
+            }
+          },
+          {
+            "id": "st_17847575977290.0396367988250641",
+            "name": "LUNA IGLESIAS, EDDU FRANCO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847574791610.05453993345207364": 2
+            }
+          },
+          {
+            "id": "st_17847575977290.13361005906955148",
+            "name": "ORBEGOSO COYAHUAZO, MICHEL JARID",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847574791610.05453993345207364": 1
+            }
+          },
+          {
+            "id": "st_17847575977290.6762834901366982",
+            "name": "PEREDA CAJA, FLAVIA ALEXANDRA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847574791610.05453993345207364": 2
+            }
+          },
+          {
+            "id": "st_17847575977290.0077469128044438396",
+            "name": "QUINCHO LOAYZA, BRAYAN EMIR",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847574791610.05453993345207364": 2
+            }
+          },
+          {
+            "id": "st_17847575977290.23583199734856497",
+            "name": "SOLANO QUIÑONES, ANGELA GABRIELA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847574791610.05453993345207364": 3
+            }
+          }
+        ],
+        "evals": [
+          {
+            "id": "ev_17847574791610.05453993345207364",
+            "name": "T1",
+            "criteria": [
+              {
+                "id": "cr_1784757618246",
+                "name": "mapa de sitio"
+              },
+              {
+                "id": "cr_1784757625908",
+                "name": "objetivos de marketing"
+              },
+              {
+                "id": "cr_1784757636681",
+                "name": "video wordpress"
+              }
+            ],
+            "groupScores": {
+              "1": {
+                "0": 4,
+                "1": 4,
+                "2": 8,
+                "__final": 16
+              },
+              "2": {
+                "0": 6,
+                "1": 6,
+                "2": 8,
+                "__final": 20
+              },
+              "3": {
+                "0": 6,
+                "1": 4,
+                "2": 8,
+                "__final": 18
+              }
+            }
+          }
+        ],
+        "activeEvalIdx": 0,
+        "syncGroups": false,
+        "delegateId": "st_17847575977290.23583199734856497"
+      },
+      "sc_1784757755141": {
+        "students": [
+          {
+            "id": "st_17847578396880.2761150334624939",
+            "name": "AGUADO JIMENEZ, LEONOR ANGELY",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847577568980.3166774625919616": 1
+            }
+          },
+          {
+            "id": "st_17847578396880.05176604917415095",
+            "name": "ALFARO PEÑA, KIARA STEPHANIE",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847577568980.3166774625919616": 4
+            }
+          },
+          {
+            "id": "st_17847578396880.9989809124767186",
+            "name": "ARBIETO SANCHEZ, IAN LENIN",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847577568980.3166774625919616": 3
+            }
+          },
+          {
+            "id": "st_17847578396880.8529833004957803",
+            "name": "DOMINGUEZ CUARESMA, CAROLINA XIMENA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847577568980.3166774625919616": 4
+            }
+          },
+          {
+            "id": "st_17847578396880.6262932171024345",
+            "name": "FIGUEROA ORTIZ, RENZO SEBASTIAN",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847577568980.3166774625919616": 5
+            }
+          },
+          {
+            "id": "st_17847578396880.23359484159231791",
+            "name": "FLORES BRACAMONTE, CHARENSSE AURA ROMELIA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847577568980.3166774625919616": 2
+            }
+          },
+          {
+            "id": "st_17847578396880.8146534633235434",
+            "name": "MENA CASTRO, MELODY ROSSE",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847577568980.3166774625919616": 5
+            }
+          },
+          {
+            "id": "st_17847578396880.2630031055042428",
+            "name": "MENDOZA PAREDES, HAROLD DAVID",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847577568980.3166774625919616": 5
+            }
+          },
+          {
+            "id": "st_17847578396880.2597761997680329",
+            "name": "OSES CIERTO, ADRIANO RAUL",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847577568980.3166774625919616": 1
+            }
+          },
+          {
+            "id": "st_17847578396880.014569670485718",
+            "name": "PARDAVE ALEJANDRO, ANA CRISTINA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847577568980.3166774625919616": 1
+            }
+          },
+          {
+            "id": "st_17847578396880.04746891654907126",
+            "name": "SANCHEZ AGUIRRE, ALISON BRIGITTE",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847577568980.3166774625919616": 4
+            }
+          },
+          {
+            "id": "st_17847578396880.8107343763001166",
+            "name": "VEGA CERVANTES, ANA ANDREA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847577568980.3166774625919616": 1
+            }
+          },
+          {
+            "id": "st_17847578396880.6458970041940074",
+            "name": "PEÑA CALVO, LARA MILENA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {
+              "ev_17847577568980.3166774625919616": 1
+            }
+          }
+        ],
+        "evals": [
+          {
+            "id": "ev_17847577568980.3166774625919616",
+            "name": "T1",
+            "criteria": [
+              {
+                "id": "cr_1784757967622",
+                "name": "Sustento de diseño"
+              },
+              {
+                "id": "cr_1784757978282",
+                "name": "Figma (Design/Design System)"
+              },
+              {
+                "id": "cr_1784758002045",
+                "name": "Grid System Responsive (Movil/Tablet/PC)​"
+              },
+              {
+                "id": "cr_1784758016902",
+                "name": "Atomic Design en Design System​"
+              }
+            ],
+            "groupScores": {
+              "1": {
+                "0": 1,
+                "1": 4,
+                "2": 3,
+                "3": 6,
+                "__final": 14
+              },
+              "2": {
+                "0": 2,
+                "1": 4,
+                "2": 3,
+                "3": 2,
+                "__final": 11
+              },
+              "3": {
+                "0": 1,
+                "1": 6,
+                "2": 4,
+                "3": 4,
+                "__final": 15
+              },
+              "4": {
+                "0": 2,
+                "1": 3,
+                "2": 4,
+                "3": 5,
+                "__final": 14
+              },
+              "5": {
+                "0": 2,
+                "1": 5,
+                "2": 3,
+                "3": 4,
+                "__final": 14
+              }
+            }
+          }
+        ],
+        "activeEvalIdx": 0,
+        "syncGroups": false,
+        "delegateId": "st_17847578396880.23359484159231791"
+      },
+      "sc_1784758286475": {
+        "students": [
+          {
+            "id": "st_17847583719850.8481512473336202",
+            "name": "ALAYO VARGAS, PIERO ALESSANDRO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.9200335293931986",
+            "name": "ARANA REYES, STEFANY OLENKA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.44959595248721895",
+            "name": "AZAÑA HUAMANI, CAREN MARICIELO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.15459917354310293",
+            "name": "BELTRAN ZAVALETA, MANUEL ANGEL",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.5005969712842839",
+            "name": "BRITO REYNOSO, YESENIA LISSETTE",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.48208472787024537",
+            "name": "CHAVEZ ALVAREZ, KEVIN ANTHONY",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.2556329017973201",
+            "name": "CONTRERAS PAREDES, JOHAN ALBERTO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.45352185636748754",
+            "name": "CONTRERAS TORREBLANCA, CLAUDIA EDITH",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.9616155344143132",
+            "name": "CORDOVA MEJIA, JOSE ARMANDO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.5766879459486104",
+            "name": "CUBAS ARISTA, JUAN JOSE",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.8560264999191491",
+            "name": "DAGA NORIEGA, LEYDI JAQUELYN",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.3801054485092681",
+            "name": "DENEGRI MONTENEGRO, FABRIZIO IBRAHIM",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.7698153454580933",
+            "name": "DIAZ CASTRILLON, TATIANA ZULEIKA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.9647277906022339",
+            "name": "GALARRETA VILLAR, SEBASTIAN JOSUE",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.9666681152072392",
+            "name": "GARCIA QUIÑONES, FIORELLA DANITZA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.7396271016964672",
+            "name": "HIDALGO CASTILLO, SEBASTIAN ALBERTO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.89983915340381",
+            "name": "LALANGUI COLALA, JUAN YOEL",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.841924738197197",
+            "name": "LOPEZ ALVARADO, JHOINER",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.8338672594327016",
+            "name": "LUNA IGLESIAS, EDDU FRANCO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.5822748735644122",
+            "name": "MACAHUACHI ROJAS, CRISTHIAN STEFANO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.3099931961649248",
+            "name": "MENA CASTRO, SABRINA LEYDI",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.4451712447810152",
+            "name": "MENDOZA PAREDES, HAROLD DAVID",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.6048974822625157",
+            "name": "PEREDA RUBIO, MEYSY MARIFE",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.2211667120776547",
+            "name": "RONCEROS REYES, GENESIS YSAITH",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.20757938207184246",
+            "name": "VELA ESQUIVEL, AMI YADIRA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.5826786387897331",
+            "name": "VILCARROMERO RAMOS, ROSARIO JOSELITH",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.4360331346417232",
+            "name": "ZARATE RUIZ, LUISA NICOLLE",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.04245424059920555",
+            "name": "CHANCO HILARIO, RUDY SEBASTIAN",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.6283771431588243",
+            "name": "HURTADO AGUADO, FERNANDO ALONSO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.8768356137111597",
+            "name": "ROSAS GUZMAN, STEFANY XIOMARA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.7142056247908225",
+            "name": "SERNA REMIGIO, CRISTHIAN RONNY",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847583719850.09450462922360858",
+            "name": "VIERA AGUIRRE, ANGHIE ALEJANDRA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          }
+        ],
+        "evals": [
+          {
+            "id": "ev_17847582876290.7100736761026153",
+            "name": "EF",
+            "criteria": [],
+            "groupScores": {
+              "1": {}
+            }
+          }
+        ],
+        "activeEvalIdx": 0,
+        "syncGroups": false,
+        "delegateId": null
+      },
+      "sc_1784758434816": {
+        "students": [
+          {
+            "id": "st_17847584776940.005985323039718549",
+            "name": "ALFARO PEÑA, KIARA STEPHANIE",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847584776940.6736435415639701",
+            "name": "ALVAREZ ANGELES, YARED ESTEBAN",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847584776940.13489150495621904",
+            "name": "ARAINGA CIVICO, CARLOS ALBERTO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847584776940.06513601975785843",
+            "name": "ARENAS SOL SOL, RENZO NEZARETH",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847584776940.0917161130808235",
+            "name": "BECERRA INUMA, YEIKY YADHIRA DE LOS ANGELES",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847584776940.5486163633742267",
+            "name": "CHERO ROJAS, JHOSIMIRY JAZMIN",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847584776940.07007965317169662",
+            "name": "CRUZ RONCAL, JAVIER ALEJANDRO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847584776940.875447987313375",
+            "name": "GUERRA ORTECHO, CAMILA MAZHIEL",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847584776940.5660836969799358",
+            "name": "GUTIERREZ RODRIGUEZ, JANIZ LIZET",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847584776940.7114196899736037",
+            "name": "HUAMANI PLASENCIA, TANIA LISETH",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847584776940.307770192663241",
+            "name": "HUERTA GABINO, YESSENIA NELIA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847584776940.9991064577157366",
+            "name": "JIBAJA MENESES, DANUSHKA FARIDE",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847584776940.19094171283432892",
+            "name": "LLANOS CHOLAN, FABIANO DEL PIERO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847584776940.6115179499905312",
+            "name": "NEYRA LIÑAN, MARIT YAMELIN",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847584776940.22570369259457013",
+            "name": "OLAYA LOPEZ, HILARY NICOLL",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847584776940.231124676291119",
+            "name": "SANCHEZ BOLO, MICHAEL JHORDAN",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847584776940.6797128001711272",
+            "name": "SOLANO QUIÑONES, ANGELA GABRIELA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847584776940.765178386341335",
+            "name": "TARRILLO PRADO, EMILY NAHOMI",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847584776940.32089856823720286",
+            "name": "RODRIGUEZ PRECIADO, BRYANT DANIEL",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847584776940.8936470779957584",
+            "name": "SERRANO CORDOVA, SEBASTIAN",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "sep_1784758481249",
+            "_sep": true,
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.4930237383945937",
+            "name": "ALVARADO VILLAR, DAFNE DAYANA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.5644018471215807",
+            "name": "ASCONA POTENCIANO, ELIDA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.9454457679663357",
+            "name": "BARRETO RIQUEZ, STEVEN FRANCO ELMER",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.4683234661968043",
+            "name": "CABRERA ZAMBRANO, CRISMAR ANYELITH",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.5276510698126972",
+            "name": "CANCHANYA GONZALES, NILTON SAMIR",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.01876775910925821",
+            "name": "CARRASCO MONSALVE, PEDRO JOSE",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.5042687846397815",
+            "name": "CARRILLO CHOCCE, JOSE ALBERTO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.10983259981648508",
+            "name": "COILA CUENCA, JHON VICTOR",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.2509200273531059",
+            "name": "CUYA PORTAL, FRANSHEZKA XIOMARA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.5156026395872773",
+            "name": "DAVILA GONZALES, DALILA YAMILET",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.015934681873931544",
+            "name": "ESPINOLA GARAY, ANDREA CELESTE",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.91584561002299",
+            "name": "ESPINOLA GARAY, LUIS FERNANDO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.9512237096815833",
+            "name": "GARCIA VEGA, IRENKA GRAZZIA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.09546137409611744",
+            "name": "GARRIDO GARCIA, JESSICA JASMINE",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.9336928153794982",
+            "name": "GOMEZ NUNJAR, YESSIRE NICOLLE",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.6667630488876113",
+            "name": "HURTADO APONTE, MARELYN BRENDI",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.7536935682661671",
+            "name": "LAURA SALCEDO, ARIADNA ROMINA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.7327379877828905",
+            "name": "MARINO LAUREANO, FABIAN ANDRE",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.6174912004841189",
+            "name": "MUR REQUENA, LAURA MARIAN",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.6387703157209903",
+            "name": "PALPAN PALACIN, DIHOGO GUSTAVO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.6469631305275485",
+            "name": "PEÑA PASTOR, MARIA GRACIA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.7890573818740304",
+            "name": "POMA REYES, RENZO ARDASIR",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.11214288562524444",
+            "name": "RAMIREZ FLORES, NAYELI ATHANIEL",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.3888872768804674",
+            "name": "REYES GARCIA, ANA LUCIA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.8514096671024658",
+            "name": "SALGUERO FERNANDEZ, JUANA MARIA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.3844598816902056",
+            "name": "SHAPIAMA CATASHUNGA, LOURDES",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.6028399175950054",
+            "name": "SIMON MENDIZABAL, ISIDRO SAMUEL FELIX",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.9518097846404561",
+            "name": "SOSA SANCHEZ, SARA VICTORIA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.6034665531868646",
+            "name": "URBANO MONTESINOS, OMAR ALFREDO",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.9816335448134007",
+            "name": "VALENZUELA CHOQUE, NICOL VALERIA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.01601941636627613",
+            "name": "VASQUEZ GUERRERO, ADRIAN ALEXANDER",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.9950166473017086",
+            "name": "VEGA BALLON, ALONSO JAVIER",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.3805223819890444",
+            "name": "YAÑEZ MORI, AYUMI HASHI",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.02445650858846049",
+            "name": "YOVERA CRUZADO, NAYELI ANAI",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.5536822197040453",
+            "name": "ZAVALETA ZAMORA, YANNELY ASTRID",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.33867306260434105",
+            "name": "PIEDRA ROMERO, GUILLERMO ENRIQUE",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          },
+          {
+            "id": "st_17847585567040.8826701431101843",
+            "name": "QUISPE COVEÑAS, CECIA ALMENDRA",
+            "group": "",
+            "comment": "",
+            "warned": false,
+            "evalGroups": {}
+          }
+        ],
+        "evals": [
+          {
+            "id": "ev_17847584730650.2964918637485674",
+            "name": "EF",
+            "criteria": [],
+            "groupScores": {
+              "1": {}
+            }
+          }
+        ],
+        "activeEvalIdx": 0,
+        "syncGroups": false,
+        "delegateId": null
+      },
+      "sc_1784758598187": {
+        "students": [],
+        "evals": [
+          {
+            "id": "ev_17847586001390.10610352304584725",
+            "name": "T1",
+            "criteria": [],
+            "groupScores": {
+              "1": {}
+            }
+          }
+        ],
+        "activeEvalIdx": 0,
+        "syncGroups": false,
+        "delegateId": null
+      }
+    },
+    "activeCourse": {
+      "parentId": "g_1784754056507",
+      "subId": "sc_1784754064662",
+      "parentName": "T. de gráfica digital 1",
+      "subName": "2026332411"
+    },
+    "activeGroup": "all",
+    "criteriaGroup": "1",
+    "editMode": false,
+    "avatarDataUrl": null,
+    "syncGroups": false,
+    "calcConfig": [
+      {
+        "name": "T1",
+        "pct": 20
+      },
+      {
+        "name": "T2",
+        "pct": 35
+      },
+      {
+        "name": "T3",
+        "pct": 45
+      }
+    ],
+    "confettiPresets": [
+      {
+        "id": "preset_1",
+        "name": "Default",
+        "enabled": true,
+        "duration": 10,
+        "audioPath": "",
+        "resources": [
+          "",
+          "",
+          ""
+        ],
+        "resourceSize": 1,
+        "numberSize": 2,
+        "bgColor": "#000000",
+        "bgOpacity": 50
+      },
+      {
+        "id": "preset_1784775775136",
+        "name": "lol",
+        "enabled": true,
+        "duration": 20,
+        "audioPath": "recursos/pibble.mp3",
+        "resources": [
+          "recursos/pibble.webm",
+          "",
+          ""
+        ],
+        "resourceSize": 2,
+        "numberSize": 3.5,
+        "bgColor": "#000000",
+        "bgOpacity": 50
+      }
+    ],
+    "activeConfettiPresetId": "preset_1",
+    "encryptedGhToken": "53d9190273e0b0cd88227703:8a77fbaf2b4cd46c1ee3ee0b02135ad9a2e67d5a5ede652ec310e74076749427048f22ee1e6cb7f1c0322b13fc6d37933f60d444994bafbd47fc79dcb564b1f1d8e9529e3f1f9048442f9bfbad4587d8d8d2a642f51b7fa72360842712ad5e796e4fcf6b9f383bc383900e0797"
+  }
+}
